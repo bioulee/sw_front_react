@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -20,6 +19,9 @@ function App() {
          */}
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<h1>Hello, worddddld!</h1>);
+
+        <img src="img/mainlogo.png" className="App-logo" alt="logo" />
+        
 
       </header>
     </div>
