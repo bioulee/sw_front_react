@@ -83,6 +83,7 @@ function MainComponent() {
 
 export default MainComponent;
 */
+
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -96,14 +97,14 @@ const StyledDatePicker = styled(DatePicker)`
   }
 `;
 
-// 배경화면 컴포넌트 (최초 방문 시만)
+// 스플래시 화면 컴포넌트 (5초 동안 로고 표시)
 function SplashScreen({ onFinish }) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      // 스플래시 화면 종료 후 방문 기록을 로컬 스토리지에 저장
-      localStorage.setItem('visited', 'true');
+      // 스플래시 화면 종료 후 세션 스토리지에 'visited' 상태 저장
+      sessionStorage.setItem('visited', 'true');
       onFinish();
-    }, 5000); // 5초간 표시
+    }, 5000); // 5초 동안 스플래시 화면 표시
 
     return () => clearTimeout(timer);
   }, [onFinish]);
@@ -115,6 +116,7 @@ function SplashScreen({ onFinish }) {
   );
 }
 
+// 메인 화면 컴포넌트
 function MainScreen({ onNext }) {
   const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(null);
@@ -188,13 +190,12 @@ function MainScreen({ onNext }) {
   );
 }
 
-// 전체 앱 컴포넌트
 function App() {
   const [isSplashVisible, setIsSplashVisible] = useState(false);
 
   useEffect(() => {
-    // 처음 방문인지 확인: 로컬 스토리지에 방문 기록이 없으면 true로 설정
-    if (!localStorage.getItem('visited')) {
+    // 세션 스토리지에 'visited'가 없으면 스플래시 화면을 표시
+    if (!sessionStorage.getItem('visited')) {
       setIsSplashVisible(true);
     }
   }, []);
