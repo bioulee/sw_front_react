@@ -1,60 +1,146 @@
-/* App.css */
-.App {
+/* 기본 스타일 정의 */
+.splash-screen, .main-screen, .details-panel, .loading-screen, .map-screen, .itinerary-info, .schedule-screen, .preference-screen {
   text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-.splash-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #282c34;
-}
-
-.background-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.main-screen {
   padding: 20px;
 }
 
-.input-group {
-  margin: 20px 0;
+.splash-logo {
+  width: 100px;
 }
 
-input[type="text"],
-input[type="date"] {
+.details-button, button {
+  margin: 10px;
   padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  margin-top: 5px;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #28a745;
-  color: white;
-  border: none;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-button:disabled {
-  background-color: #ccc;
+.details-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: #fff;
+  width: 200px;
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
 }
 
-
-/* 현재 날짜부터 10일간 다른 색상 */
-input[type="date"]:not(:placeholder-shown) {
-  background-color: #e0f7fa; /* 블루 계열 */
+.details-panel.active {
+  transform: translateX(0);
 }
-/* 달력의 빨간색 스타일 */
-.react-datepicker__day--highlighted-red {
-  color: red !important;
+
+.active {
+  background-color: #ddd;
+}
+
+.highlighted-red {
+  color: red;
   font-weight: bold;
 }
+
+input[type="number"] {
+  width: 50px;
+}
+
+/*
+.time-picker {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+  */
+  .loading-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+  }
+  
+  .circular-progress {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+  
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .circle-background,
+  .circle-progress {
+    fill: none;
+    stroke-width: 10;
+    cx: 75;
+    cy: 75;
+    r: 70;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+  
+  .circle-background {
+    stroke: #e6e6e6;
+  }
+  
+  .circle-progress {
+    stroke: #3b82f6;
+    stroke-linecap: round;
+    stroke-dasharray: 440;
+    stroke-dashoffset: 440;
+    transition: stroke-dashoffset 0.3s ease;
+  }
+  
+  .loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+.circular-progress {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.progress-ring {
+  position: relative;
+  transform: rotate(-90deg); /* 원형 애니메이션을 상단에서 시작하게 함 */
+}
+
+.progress-ring__circle {
+  fill: none;
+  stroke: #3b82f6; /* 진행 색상 */
+  stroke-width: 10;
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440; /* 초기값으로 전체 원이 숨겨짐 */
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 배경 원 */
+.progress-ring__background {
+  fill: none;
+  stroke: #dc2323; /* 배경 원의 색상 */
+  stroke-width: 10;
+}
+
+
