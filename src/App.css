@@ -1,11 +1,142 @@
+
+.custom-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  max-width: 100px; /* 옆쪽 */
+  height: 130px; /* 옆쪽 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button-image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  object-fit: scale-down; 
+}
+
+.button-text {
+  position: relative;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 공통 스타일 - 입력 필드와 날짜 선택기의 세로 길이를 통일 */
+.input-field, .datepicker-input {
+  padding: 15px 20px; /* 세로 크기를 맞추기 위해 padding 조정 */
+  font-size: 16px; /* 폰트 크기 */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%; /* 너비 100% */
+  box-sizing: border-box;
+  background-color: #f8f8f8; /* 배경 색상 */
+  margin-bottom: 15px; /* 아래쪽 여백 */
+}
+
+/* 포커스 시 스타일 */
+.input-field:focus, .datepicker-input:focus {
+  outline: none;
+  border-color: #007bff; /* 포커스 시 테두리 색상 */
+  background-color: #ffffff; /* 포커스 시 배경 색상 */
+}
+
 /* 기본 스타일 정의 */
-.splash-screen, .main-screen, .details-panel, .loading-screen, .map-screen, .itinerary-info, .schedule-screen, .preference-screen {
+.splash-screen, .details-panel, .loading-screen, .map-screen, .itinerary-info, .schedule-screen, .preference-screen {
   text-align: center;
   padding: 20px;
 }
 
+.main-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.details-button {
+  background-color: #007bff; /* 버튼 색상 */
+  color: #fff; /* 텍스트 색상 */
+  border: none;
+  border-radius: 20px; /* 모서리 둥글게 */
+  padding: 100px 200px; /* 텍스트와 버튼 경계 사이 여백 */
+  margin-bottom: 15px; /* 다른 요소와의 아래쪽 여백 */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  width: 100%; /* 화면 너비에 맞게 버튼 크기 조정 */
+  max-width: 100px; /* 최대 너비 제한 */
+
+  /* 오른쪽 상단에 고정 */
+  position: absolute;
+  top: 10px; /* 화면 위쪽에서 10px 떨어짐 */
+  right: 10px; /* 화면 오른쪽에서 10px 떨어짐 */
+  z-index: 10; /* 다른 요소 위에 위치하게 설정 */
+}
+
+/* 반응형 설정 (작은 화면에서 패딩과 폰트 크기 조정) */
+@media (max-width: 600px) {
+  .details-button{
+    padding: 8px 16px; /* 모바일에서 작은 패딩 */
+    font-size: 14px; /* 작은 폰트 크기 */
+  }
+}
+
+/* 호버 효과 */
+.details-button:hover {
+  background-color: #0056b3; /* 호버 시 배경색 */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.location-input,
+.datepicker,
+.create-schedule-button {
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 15px;
+  padding: 12px;
+  font-size: 18px;
+}
+
+.create-schedule-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 14px;
+  width: 100%;
+}
+
+.create-schedule-button:hover {
+  background-color: #45a049;
+}
+
+
 .splash-logo {
-  width: 100px;
+  width: 1000px;
 }
 
 .details-button, button {

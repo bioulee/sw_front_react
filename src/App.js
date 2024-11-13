@@ -3,7 +3,12 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 //import GoogleMapReact from 'google-map-react';
 import './App.css';
+import mainLogo from './img/mainlogo.png'; // 이미지 파일 경로에 맞게 수정
+import seoulPic from './img/seoul.jpg'; // 이미지 파일 경로에 맞게 수정
+import btn_test from './img/btn_ios.png'; // 이미지 파일 경로에 맞게 수정
 
+
+//////////////////////////////////////////////////////////////////////////////
 function SplashScreen({ onFinish }) {
   useEffect(() => {
     const timer = setTimeout(onFinish, 3000); // 3초간 로고 화면 표시
@@ -12,11 +17,14 @@ function SplashScreen({ onFinish }) {
 
   return (
     <div className="splash-screen">
-      <img src="logo.png" alt="Logo" className="splash-logo" />
+      <img src= {mainLogo} alt="Logo" className="splash-logo" />
     </div>
   );
 }
 
+
+
+//////////////////////////////////////////////////////////////////////////////
 function MainScreen({ onNext, onShowDetails }) {
   const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(null);
@@ -41,36 +49,46 @@ function MainScreen({ onNext, onShowDetails }) {
 
   return (
     <div className="main-screen">
-      <button className="details-button" onClick={onShowDetails}>상세</button>
-      <h1>어디로 여행을 떠나시겠습니까?</h1>
+
+      <button className="details-button" onClick={onShowDetails}>
+      상세</button>
+      
       <input
+        className="input-field"
         type="text"
-        placeholder="여행지를 입력하세요"
+        placeholder="어디로 여행을 가시나요?"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
       />
       <DatePicker
+        className="datepicker-input"
         selected={startDate}
         onChange={handleStartDateChange}
         minDate={today}
         dayClassName={dayClassName}
-        placeholderText="출발 날짜"
+        placeholderText="출발 날짜를 알려주세요"
       />
+      
       <DatePicker
+        className="datepicker-input"
         selected={endDate}
         onChange={handleEndDateChange}
         minDate={startDate || today}
         maxDate={startDate ? new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000) : null}
         dayClassName={dayClassName}
-        placeholderText="도착 날짜"
+        placeholderText="도착 날짜를 알려주세요"
       />
-      <button onClick={() => onNext({ location, startDate, endDate })}>
+      <button 
+        className="submit-button"
+        onClick={() => onNext({ location, startDate, endDate })}>
         일정 생성
       </button>
     </div>
   );
 }
 
+
+//////////////////////////////////////////////////////////////////////////////
 function DetailsPanel({ onClose }) {
   return (
     <div className="details-panel">
@@ -84,10 +102,11 @@ function DetailsPanel({ onClose }) {
   );
 }
 
+//////////////////////////////////////////////////////////////////////////////
 function ItineraryInfoScreen({ location, onNext }) {
   return (
     <div className="itinerary-info">
-      <img src={`https://source.unsplash.com/featured/?${location}`} alt={location} />
+      <img src={seoulPic} alt={location} />
       <p>{location}에 대한 간단한 설명입니다.</p>
       <p>비자: O</p>
       <p>전압: 220V</p>
@@ -97,6 +116,7 @@ function ItineraryInfoScreen({ location, onNext }) {
   );
 }
 
+//////////////////////////////////////////////////////////////////////////////
 function ScheduleScreen({ startDate, endDate, onNext }) {
   const [dailySchedules, setDailySchedules] = useState([]);
 
@@ -206,6 +226,7 @@ function ScheduleScreen({ startDate, endDate, onNext }) {
   );
 }
 
+//////////////////////////////////////////////////////////////////////////////
 function PreferenceScreen({ onNext }) {
   const tags = ["문화유산", "쇼핑", "전통시장", "휴양지", "랜드마크", "자연", "공원", "카지노", "스파", "예술", "테마파크"];
   const [selectedTags, setSelectedTags] = useState([]);
@@ -237,6 +258,7 @@ function PreferenceScreen({ onNext }) {
   );
 }
 
+//////////////////////////////////////////////////////////////////////////////
 function LoadingScreen({ onFinish }) {
   const [progress, setProgress] = useState(0);
 
@@ -266,6 +288,7 @@ function LoadingScreen({ onFinish }) {
   );
 }
 
+//////////////////////////////////////////////////////////////////////////////
 //<GoogleMapReact defaultCenter={{ lat: 59.95, lng: 30.33 }} defaultZoom={11} />
 function MapScreen() {
   return (
@@ -276,6 +299,7 @@ function MapScreen() {
   );
 }
 
+//////////////////////////////////////////////////////////////////////////////
 function App() {
   const [screen, setScreen] = useState('splash');
   const [detailsVisible, setDetailsVisible] = useState(false);
