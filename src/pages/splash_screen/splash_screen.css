@@ -1,0 +1,13 @@
+.splash-screen{
+
+    display: flex;
+    justify-content:center;
+    align-items: center; 
+    height: 100vh; /*높이값의 100% */
+    text-align: center;
+
+}
+
+.splash-logo {
+    width: 200px; /* 크기 */
+}
