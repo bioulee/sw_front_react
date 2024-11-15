@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import SplashScreen from './pages/splash_screen.js';
-import MainScreen from './pages/main_screen.js';
+import SplashScreen from './pages/splash_screen/splash_screen.js';
+import MainScreen from './pages/main_screen/main_screen.js';
 
 function App() {
   return (
