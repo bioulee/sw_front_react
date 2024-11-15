@@ -122,7 +122,7 @@ function MainScreen() {
           onChange={handleStartDateChange}
           minDate={today}
           dateFormat="yyyy/MM/dd"
-          placeholderText="출발 날짜를 선택해주세요"
+          placeholderText="출발 날짜를 선택해주세요ㅇ"
           dayClassName={dayClassName}
           calendarClassName="custom-calendar"
         />
