@@ -26,6 +26,8 @@ function MainScreen() {
   const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false); // 아코디언 상태 관리
+
   const navigate = useNavigate();
   const today = new Date();
 
@@ -39,7 +41,7 @@ function MainScreen() {
   };
 
   const [suggestions, setSuggestions] = useState([]); // 자동완성 목록
-  const destinations = ['서울', '부산', '제주', '강릉', '대구', '인천', '속초', '전주', '성남']; // 여행지 목록
+  const destinations = ['서울 / seoul', '부산 / busan', '제주 / jeju', '강릉', '대구', '인천', '속초', '전주', '성남']; // 여행지 목록
 
   const handleInputChange = (e) => {
     const input = e.target.value; // e.target.value에서 입력값을 가져옴
@@ -82,13 +84,18 @@ function MainScreen() {
   // "일정 생성" 버튼 비활성화 조건
   const isFormValid = location && startDate && endDate;
 
+  // 아코디언 토글
+  const toggleAccordion = () => {
+    setIsAccordionOpen(!isAccordionOpen);
+  };
+
+
   return (
     <div className="main-screen">
       <div className="upper-box">
-        <button className="logo-button" onClick={() => navigate('/main')} />
-        <button className="details-button" onClick={() => navigate('/details')} />
+      <button className="logo-button" onClick={() => navigate('/main')} />
+        <button className="details-button" onClick={toggleAccordion}></button>
       </div>
-
       <div className="choice_box">
         <h3 className='header'>여행계획이 고민이신가요?</h3>
         <div className="input-container">
@@ -115,6 +122,20 @@ function MainScreen() {
           )}
         </div>
 
+        {/* 아코디언 UI */}
+      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={toggleAccordion}>X</button>
+        <div>
+        <button className="login-accordion-button" onClick={() => navigate('/login')}>로그인</button>
+        <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
+        <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
+        </div>
+        
+      </div>
+
+       {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
+       <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
+
         {/* 출발일 선택 달력 */}
         <DatePicker
           className="datepicker-input"
@@ -122,7 +143,7 @@ function MainScreen() {
           onChange={handleStartDateChange}
           minDate={today}
           dateFormat="yyyy/MM/dd"
-          placeholderText="출발 날짜를 선택해주세요ㅇ"
+          placeholderText="출발 날짜를 선택해주세요"
           dayClassName={dayClassName}
           calendarClassName="custom-calendar"
         />
@@ -135,7 +156,7 @@ function MainScreen() {
           minDate={startDate || today}
           maxDate={startDate ? new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000) : null}  // 출발일 기준 7일 이내로 제한
           dateFormat="yyyy/MM/dd"
-          placeholderText="도착 날짜를 선택해주세요 (최대 7일)"
+          placeholderText="도착 날짜를 선택해주세요 (최대일정 7일)"
           dayClassName={dayClassName}
           calendarClassName="custom-calendar"
         />
@@ -143,7 +164,7 @@ function MainScreen() {
         {/* 일정 생성 버튼 */}
         <button
           className="submit-button"
-          onClick={() => navigate('/createplan')}
+          onClick={() => navigate('/createplan', {state: {location,startDate,endDate},})}
           disabled={!isFormValid}  // 여행지와 날짜가 모두 입력되면 활성화
         >
           일정 생성

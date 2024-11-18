@@ -31,6 +31,9 @@
     background-repeat: no-repeat;
     border: none;
     background-color: #ffffff;
+
+    cursor: pointer;
+
     background-image: url('/src/img/hamburger.png');
 }
 
@@ -130,7 +133,7 @@
 }
 
 
-/*      */
+/* 달력 10일 색 변경 */
 
 .custom-calendar .react-datepicker__header {
     position: relative;
@@ -158,3 +161,79 @@
     color: rgb(69, 28, 232);
     font-weight: bold;
   }
+
+  /* 아코디언 기본 스타일 */
+.accordion {
+    position: fixed;
+    right: -100%; /* 초기 상태에서 아코디언이 화면 오른쪽 밖에 위치 */
+    top: 0;
+    width: 50%; /* 화면 절반만 차지 */
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1001; /* 오버레이보다 위에 위치 */
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+  
+  /* 오버레이 처리 */
+  .accordion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* 회색 오버레이 */
+    z-index: 1000;
+    display: none; /* 기본적으로 숨겨짐 */
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .accordion.open {
+    right: 0; /* 아코디언이 화면에 나타날 때 */
+  }
+  
+  .accordion-overlay.visible {
+    display: block; /* 오버레이가 보이게 함 */
+  }
+  
+  /* 아코디언 버튼들 */
+  .close-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #aa6a6a;
+    color: rgb(0, 0, 0);
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    position: static;
+    top: 10px;
+    right: 10px;
+    margin-bottom: 100px;
+  }
+
+  .login-accordion-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .ask-accordion-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
