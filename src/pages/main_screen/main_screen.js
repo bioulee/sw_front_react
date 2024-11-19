@@ -123,7 +123,7 @@ function MainScreen() {
         </div>
 
         {/* 아코디언 UI */}
-      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+       <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
         <button className="close-btn" onClick={toggleAccordion}>X</button>
         <div>
         <button className="login-accordion-button" onClick={() => navigate('/login')}>로그인</button>
@@ -131,7 +131,7 @@ function MainScreen() {
         <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
         </div>
         
-      </div>
+      </div> 
 
        {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
        <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
