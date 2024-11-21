@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker'; // 날짜 선택기를 위한 라이�
 import 'react-datepicker/dist/react-datepicker.css'; // 날짜 선택기의 스타일 가져옴
 import "./main_screen.css"; // 해당 컴포넌트의 스타일 가져옴
 
+
 // 한글 지명을 영문으로 변환하는 함수
 const koreanToRomanized = (korean) => {
   const romanizationMap = { // 한글 지명과 대응하는 영문 지명 매핑
@@ -162,12 +163,21 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
       </div>
 
 
-      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}> {/* 아코디언 바 */}
-        <button className="close-accordion-btn" onClick={toggleAccordion}>X</button> {/* 아코디언 닫기 버튼 */}
-        <div className="accordion-content">
-          <p>여기에는 아코디언 안에 들어갈 내용을 작성하세요.</p>
+              {/* 아코디언 UI */}
+              <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={toggleAccordion}>X</button>
+        <div>
+        <button className="login-accordion-button" onClick={() => navigate('/login')}>로그인</button>
+        <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
+        <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
         </div>
+        
       </div>
+
+       {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
+       <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
+
+
       
     </div>
   );
