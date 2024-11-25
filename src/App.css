@@ -1,2 +1,6 @@
-
+.absolute-back{
+    font-size:4rem;
+    background-color: white;
+    border: none; /* 버튼의 기본 테두리 제거 */
+}
 

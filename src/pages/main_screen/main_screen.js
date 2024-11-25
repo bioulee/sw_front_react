@@ -4,7 +4,6 @@ import DatePicker from 'react-datepicker'; // 날짜 선택기를 위한 라이�
 import 'react-datepicker/dist/react-datepicker.css'; // 날짜 선택기의 스타일 가져옴
 import "./main_screen.css"; // 해당 컴포넌트의 스타일 가져옴
 
-
 // 한글 지명을 영문으로 변환하는 함수
 const koreanToRomanized = (korean) => {
   const romanizationMap = { // 한글 지명과 대응하는 영문 지명 매핑
@@ -28,15 +27,13 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
   const [startDate, setStartDate] = useState(null); // 출발 날짜 상태 관리
   const [endDate, setEndDate] = useState(null); // 도착 날짜 상태 관리
   const [isAccordionOpen, setIsAccordionOpen] = useState(false); // 아코디언 열림/닫힘 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // 로그인 상태 관리 (기본적으로 로그아웃 상태)
 
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 가져옴
   const today = new Date(); // 현재 날짜 가져옴
 
-
   const [suggestions, setSuggestions] = useState([]); // 자동완성 목록 상태 관리
-  const destinations = ['서울 / seoul', '부산 / busan', '제주 / jeju', '강릉', '대구', '인천', '속초', '전주', '성남']; // 여행지 목록
-
-
+  const destinations = ['서울', '부산', '제주', '강릉', '대구', '인천', '속초', '전주', '성남']; // 여행지 목록
 
   const handleSuggestionClick = (suggestion) => { // 자동완성 항목 클릭 핸들러
     setLocation(suggestion); // 클릭된 항목으로 입력값 설정
@@ -75,7 +72,6 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
     setEndDate(null); // 출발 날짜가 변경되면 도착 날짜 초기화
   };
 
-
   const handleEndDateChange = (date) => { // 도착 날짜 변경 핸들러
     setEndDate(date); // 도착 날짜 설정
   };
@@ -85,10 +81,34 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
     return diffInDays >= -1 && diffInDays < 9 ? 'highlighted-red' : null; // 10일 이내면 특별한 클래스명 반환
   };
 
-  const isFormValid = location && startDate && endDate; // 여행지, 출발일, 도착일이 모두 입력되었는지 확인
+  // 입력된 여행지가 목록에 포함되어 있는지 확인하는 함수
+  const isLocationValid = () => {
+    return destinations.some((destination) => {
+      const [koreanName, romanizedName] = destination.split(' / ');
+      return location === koreanName || location === romanizedName;
+    });
+  };
+
+  const isFormValid = location && startDate && endDate && isLocationValid(); // 여행지, 출발일, 도착일이 모두 입력되고 여행지가 유효한지 확인
 
   const toggleAccordion = () => { // 아코디언 열림/닫힘 토글 함수
     setIsAccordionOpen(!isAccordionOpen);
+  };
+
+  const handleLoginRedirect = () => { // 로그인 페이지로 리다이렉트하는 함수
+    navigate('/login');
+  };
+
+  const handleSubmit = () => { // 일정 생성 버튼 클릭 시 동작
+    if (isLoggedIn) {
+      if (isLocationValid()) { // 여행지가 유효한 경우만 일정 생성 진행
+        navigate('/createplan', { state: { location, startDate, endDate } });
+      } else {
+        alert('유효하지 않은 여행지입니다. 올바른 여행지를 선택해주세요.');
+      }
+    } else {
+      handleLoginRedirect(); // 로그인이 안 된 경우 로그인 페이지로 리다이렉트
+    }
   };
 
   return ( // JSX 반환
@@ -98,9 +118,8 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
         <button className="details-button" onClick={toggleAccordion}></button> {/* 상세 버튼 */}
       </div>
 
-      <h3 className='header'>여행계획이 고민이신가요?</h3> {/* 질문 텍스트 */}
+      <h3 className='header0'>여행계획이 고민이신가요?</h3> {/* 질문 텍스트 */}
       <div className="choice_box"> {/* 여행 계획 입력 컨테이너 */}
-       
         <div className="input-container"> {/* 입력 필드 컨테이너 */}
           <input
             className="input-field"
@@ -110,7 +129,7 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
             onChange={handleInputChange} // 입력값 변경 핸들러
           />
           {suggestions.length > 0 && ( // 자동완성 목록 표시
-            <ul className = "suggestions-list">
+            <ul className="suggestions-list">
               {suggestions.map((suggestion, index) => ( // 자동완성 항목 생성
                 <li
                   key={index} // 고유 키
@@ -149,7 +168,7 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
 
         <button
           className="submit-button"
-          onClick={() => navigate('/createplan', {state: {location, startDate, endDate},})} // 계획 생성 시 데이터 전달
+          onClick={handleSubmit} // 일정 생성 시 로그인 여부 확인 후 동작
           disabled={!isFormValid} // 폼 유효성 검사
         >
           일정 생성 {/* 버튼 텍스트 */}
@@ -162,23 +181,18 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
         </button>
       </div>
 
-
-              {/* 아코디언 UI */}
-              <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+      {/* 아코디언 UI */}
+      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
         <button className="close-btn" onClick={toggleAccordion}>X</button>
         <div>
-        <button className="login-accordion-button" onClick={() => navigate('/login')}>로그인</button>
-        <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
-        <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
+          <button className="login-accordion-button" onClick={handleLoginRedirect}>로그인</button>
+          <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
+          <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
         </div>
-        
       </div>
 
-       {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
-       <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
-
-
-      
+      {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
+      <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
     </div>
   );
 }

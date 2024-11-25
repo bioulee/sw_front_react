@@ -2,7 +2,11 @@
   padding: 16px; /* 화면의 메인 컨테이너에 여백을 추가 */
 }
 
-.header {
+.header0 {
+  background-color: #ffffff; /* 헤더 배경색을 흰색으로 설정 */
+  padding: 10px; /* 안쪽 여백 설정 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 아래쪽에 그림자 추가 */
+  text-align: center; /* 텍스트를 중앙 정렬 */
   color: rgb(93, 172, 206); /* 헤더 텍스트의 색상을 밝은 파란색 계열로 설정 */
 }
 
@@ -190,7 +194,7 @@
   .close-btn {
     width: 40px;
     height: 40px;
-    background-color: #aa6a6a;
+    background-color: #ffffff;
     color: rgb(0, 0, 0);
     border: none;
     font-size: 18px;
