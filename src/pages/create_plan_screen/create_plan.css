@@ -1,0 +1,46 @@
+.create-plan {
+  margin: 20px;
+  max-height: 80vh; /* Limit the maximum height of the container */
+  overflow-y: auto; /* Enable scrolling if content exceeds the max height */
+}
+
+.create-plan h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.create-plan ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.create-plan li {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-plan label {
+  display: block;
+  margin: 5px 0;
+}
+
+.create-plan button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-plan button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}

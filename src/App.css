@@ -1,6 +1,50 @@
-.absolute-back{
-    font-size:4rem;
-    background-color: white;
-    border: none; /* 버튼의 기본 테두리 제거 */
+/* App.css */
+
+/* General app container style */
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 60px; /* Padding bottom for navigation buttons */
 }
 
+/* Main content area */
+.main-content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Navigation buttons container */
+.navigation-buttons {
+  height: 10vh;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Back and Forward button styles */
+.back-button,
+.forward-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.back-button:hover,
+.forward-button:hover {
+  background-color: #0056b3;
+}
