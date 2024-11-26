@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '/Users/biou/Documents/sw_proj_react/src/pages/choice_tag_screen/choice_tag.css'
+import './choice_tag.css'
 
 function SelectPreferences() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '/Users/biou/Documents/sw_proj_react/src/pages/loading_screen/loading.css'
+import './loading.css'
 
 function LoadingScreen() {
   const [progress, setProgress] = useState(0); // 진행률 상태

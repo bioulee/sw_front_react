@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '/Users/biou/Documents/sw_proj_react/src/pages/create_plan_screen/create_plan.css'
+import './create_plan.css'
 
 function CreatePlan() {
   const { state } = useLocation(); // 전달받은 데이터

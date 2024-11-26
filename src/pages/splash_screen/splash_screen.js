@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mainLogo from '/Users/biou/Documents/sw_proj_react/src/img/mainlogo.png';  // 이미지 경로
-import '/Users/biou/Documents/sw_proj_react/src/pages/splash_screen/splash_screen.css';
+import mainLogo from '../../img/mainlogo.png';  // 이미지 경로
+import './splash_screen.css';
 
 function screen(){
   return (

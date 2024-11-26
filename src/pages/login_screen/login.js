@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mainLogo from '/Users/biou/Documents/sw_proj_react/src/img/logo.png';  // 이미지 경로
+import mainLogo from '../../img/logo.png';  // 이미지 경로
 
 import './login.css';
 
