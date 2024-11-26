@@ -40,7 +40,7 @@ body {
     z-index: 1; /* 다른 요소 아래에 표시 */
 }
 
-.accordion {
+.accordion0 {
     position: fixed; /* 화면에 고정된 위치 지정 */
     left: 50%; /* 화면의 중앙에 위치 */
     bottom: 50px; /* 화면 아래에 위치 */
@@ -53,11 +53,11 @@ body {
     overflow: hidden; /* 넘치는 내용 숨김 */
 }
 
-.accordion.collapsed {
+.accordion0.collapsed {
     height: 30vh; /* 축소된 상태에서 높이를 화면 높이의 30%로 설정 */
 }
 
-.accordion.expanded {
+.accordion0.expanded {
     height: 80vh; /* 확장된 상태에서 높이를 화면 높이의 80%로 설정 */
 }
 

@@ -104,7 +104,7 @@ function Myplan() { // Myplan 컴포넌트 정의
             <div id="map" className="map"></div> {/* 지도 표시 영역 */}
     
             <div
-                className={`accordion ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
+                className={`accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
             >
                 <div className="accordion-header"> {/* 아코디언 헤더 영역 */}
                     <span className="header-info">{accordionExpanded ? "여행 세부 일정" : "일정 요약"}</span>

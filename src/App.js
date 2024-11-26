@@ -18,10 +18,10 @@ function NavigationButtons() {
   return (
     <div className="navigation-buttons">
       <button className="back-button" onClick={() => navigate(-1)}>
-        ⬅️ Back
+        ⬅️
       </button>
       <button className="forward-button" onClick={() => navigate(1)}>
-        Forward ➡️
+        ➡️
       </button>
     </div>
   );
