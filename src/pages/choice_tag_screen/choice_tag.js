@@ -13,6 +13,7 @@ function SelectPreferences() {
 
   const [selectedTags, setSelectedTags] = useState([]);
   const [transportation, setTransportation] = useState('대중교통'); // 기본값: 대중교통
+  const [accommodationAddress, setAccommodationAddress] = useState('');
 
   const handleTagClick = (tag) => {
     setSelectedTags((prevSelected) =>
@@ -63,6 +64,16 @@ function SelectPreferences() {
           자가용
         </button>
       </div>
+
+       {/* 숙소 예약 질문 및 입력창 */}
+       <h2>이미 숙소를 예약하셨나요?</h2>
+      <input
+        type="text"
+        className="accommodation-input"
+        placeholder="예약한 숙소의 주소를 입력하세요"
+        value={accommodationAddress}
+        onChange={(e) => setAccommodationAddress(e.target.value)}
+      />
 
       {/* 일정 생성 버튼 */}
       <button className="next-button" onClick={handleNext}>

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react"; // React와 필요한 훅(useState, useEffect) 가져오기
+import { useNavigate } from 'react-router-dom';
 import './myplan.css'; // 해당 컴포넌트의 스타일 가져오기
+
 
 function Myplan() { // Myplan 컴포넌트 정의
     const [accordionExpanded, setAccordionExpanded] = useState(false); // 아코디언 확장 상태 관리
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+    const [saveName, setSaveName] = useState(""); // 저장할 이름 상태 관리
+    const [isSaveSuccess, setIsSaveSuccess] = useState(false); // 저장 성공 메시지 상태 관리
+
+    const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 가져옴
 
     useEffect(() => { // 컴포넌트가 마운트될 때 실행
         const script = document.createElement("script"); // 새로운 스크립트 태그 생성
@@ -94,35 +101,63 @@ function Myplan() { // Myplan 컴포넌트 정의
         };
         document.body.appendChild(script); // 스크립트를 body에 추가하여 Google Maps API 로드
     }, []); // 의존성 배열이 비어있어 마운트 시 한 번만 실행
+
+    const handleSaveClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        setSaveName("");
+    };
+
+    const handleSaveNameChange = (event) => {
+        setSaveName(event.target.value);
+    };
+
+    const handleSaveConfirm = () => {
+        // 저장 확인 로직 실행 후 저장 성공 메시지 표시
+        setIsSaveSuccess(true);
+        setTimeout(() => {
+            setIsSaveSuccess(false);
+            handleModalClose();
+        }, 1000); // 1초 동안 메시지 표시 후 모달 닫기
+    };
+
     return (
         <div className="app"> {/* 메인 앱 컨테이너 */}
-            <header className="header"> {/* 헤더 영역 */}
-                <h1>WEPL</h1> {/* 제목 텍스트 */}
-                <p>여행 일정 관리</p> {/* 부제목 텍스트 */}
-            </header>
-    
             <div id="map" className="map"></div> {/* 지도 표시 영역 */}
-    
             <div
                 className={`accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
             >
                 <div className="accordion-header"> {/* 아코디언 헤더 영역 */}
-                    <span className="header-info">{accordionExpanded ? "여행 세부 일정" : "일정 요약"}</span>
+                    <button
+                        className="main-go" // 버튼 클래스 설정
+                        onClick={() => navigate('/main')} // 일정 저장 버튼 클릭 시 모달 열기
+                    >
+                        메인으로 나가기
+                    </button>
                     <button
                         onClick={() => setAccordionExpanded((prev) => !prev)} // 클릭 시 아코디언 상태 토글
                         className="arrow-btn" // 버튼 클래스 설정
                     >
                         {accordionExpanded ? "⬇️" : "⬆️"} {/* 아코디언 상태에 따른 버튼 텍스트 */}
                     </button>
+                    <button
+                        className="record-go" // 버튼 클래스 설정
+                        onClick={handleSaveClick} // 일정 저장 버튼 클릭 시 모달 열기
+                    >
+                        일정 저장
+                    </button>
                 </div>
-    
+
                 <div className="accordion-content"> {/* 아코디언 내용 영역 */}
                     {/* 여행 정보 섹션 (아코디언 상단에 위치하도록 이동) */}
                     <div className="travel-info">
                         <p>총 여행기간: 11/20(화) [10:00] ~ 11/29(목) [20:00]</p>
                         <p>예상 여행 경비: 1,270,000원</p>
                     </div>
-    
+
                     {/* 아코디언 아이템 목록 */}
                     {data.map((item, index) => ( // data 배열을 순회하며 아코디언 아이템 생성
                         <div key={item.id} className="accordion-item" data-index={index + 1}> {/* 개별 아코디언 아이템 및 일자 표시 */}
@@ -149,13 +184,36 @@ function Myplan() { // Myplan 컴포넌트 정의
                             </div>
                         </div>
                     ))}
-
                 </div>
             </div>
+
+            {/* 모달 오버레이 */}
+            {isModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <button className="close-btn" onClick={handleModalClose}>X</button>
+                        <h2>일정 저장</h2>
+                        <input
+                            type="text"
+                            value={saveName}
+                            onChange={handleSaveNameChange}
+                            placeholder="저장할 이름을 입력하세요"
+                        />
+                        <button className="save-btn" onClick={handleSaveConfirm}>저장하기</button>
+                    </div>
+                </div>
+            )}
+
+            {/* 저장 성공 메시지 */}
+            {isSaveSuccess && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <p>저장되었습니다!</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
-    
-
 }
 
 const data = [ // 아코디언에 표시할 데이터 배열

@@ -1,6 +1,6 @@
 // src/App.js
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 
 const SplashScreen = lazy(() => import('./pages/splash_screen/splash_screen.js'));
@@ -14,6 +14,12 @@ const SignUp = lazy(() => import('./pages/create_account_screen/create_account.j
 
 function NavigationButtons() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Hide navigation buttons on specific routes
+  if (location.pathname === '/loading' || location.pathname === '/myplan' || location.pathname === '/' || location.pathname === '/main') {
+    return null;
+  }
 
   return (
     <div className="navigation-buttons">
