@@ -111,88 +111,223 @@ function MainScreen() { // 메인 화면 컴포넌트 정의
     }
   };
 
-  return ( // JSX 반환
-    <div className="main-screen"> {/* 메인 화면 컨테이너 */}
-      <div className="upper-box"> {/* 상단 버튼 영역 */}
-        <button className="logo-button" onClick={() => navigate('/main')} /> {/* 로고 버튼 */}
-        <button className="details-button" onClick={toggleAccordion}></button> {/* 상세 버튼 */}
+  // return ( // JSX 반환
+  //   <div className="main-screen"> {/* 메인 화면 컨테이너 */}
+  //     <div className="upper-box"> {/* 상단 버튼 영역 */}
+  //       <button className="logo-button" onClick={() => navigate('/main')} /> {/* 로고 버튼 */}
+  //       <button className="details-button" onClick={toggleAccordion}></button> {/* 상세 버튼 */}
+  //     </div>
+
+  //     <h3 className='header0'>여행계획이 고민이신가요?</h3> {/* 질문 텍스트 */}
+  //     <div className="choice_box"> {/* 여행 계획 입력 컨테이너 */}
+  //       <div className="input-container"> {/* 입력 필드 컨테이너 */}
+  //         <input
+  //           className="input-field"
+  //           type="text"
+  //           placeholder="어디로 여행을 가시나요?" // 여행지 입력창 플레이스홀더
+  //           value={location} // 입력값 바인딩
+  //           onChange={handleInputChange} // 입력값 변경 핸들러
+  //         />
+  //         {suggestions.length > 0 && ( // 자동완성 목록 표시
+  //           <ul className="suggestions-list">
+  //             {suggestions.map((suggestion, index) => ( // 자동완성 항목 생성
+  //               <li
+  //                 key={index} // 고유 키
+  //                 onClick={() => handleSuggestionClick(suggestion)} // 클릭 시 여행지 설정
+  //                 className="suggestion-item"
+  //               >
+  //                 {suggestion} {/* 여행지 이름 */}
+  //               </li>
+  //             ))}
+  //           </ul>
+  //         )}
+  //       </div>
+
+  //       <DatePicker
+  //         className="datepicker-input"
+  //         selected={startDate} // 출발 날짜
+  //         onChange={handleStartDateChange} // 출발 날짜 변경 핸들러
+  //         minDate={today} // 오늘 이후 날짜만 선택 가능
+  //         dateFormat="yyyy/MM/dd" // 날짜 형식 설정
+  //         placeholderText="출발 날짜를 선택해주세요" // 플레이스홀더
+  //         dayClassName={dayClassName} // 날짜에 클래스 추가
+  //         calendarClassName="custom-calendar" // 커스텀 달력 클래스명
+  //       />
+
+  //       <DatePicker
+  //         className="datepicker-input"
+  //         selected={endDate} // 도착 날짜
+  //         onChange={handleEndDateChange} // 도착 날짜 변경 핸들러
+  //         minDate={startDate || today} // 출발일 이후만 선택 가능
+  //         maxDate={startDate ? new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000) : null} // 출발일 기준 7일 이내로 제한
+  //         dateFormat="yyyy/MM/dd" // 날짜 형식 설정
+  //         placeholderText="도착 날짜를 선택해주세요 (최대일정 7일)" // 플레이스홀더
+  //         dayClassName={dayClassName} // 날짜에 클래스 추가
+  //         calendarClassName="custom-calendar" // 커스텀 달력 클래스명
+  //       />
+
+  //       <button
+  //         className="submit-button"
+  //         onClick={handleSubmit} // 일정 생성 시 로그인 여부 확인 후 동작
+  //         disabled={!isFormValid} // 폼 유효성 검사
+  //       >
+  //         일정 생성 {/* 버튼 텍스트 */}
+  //       </button>
+  //     </div>
+
+  //     <div>
+  //       <button className='record-button' onClick={() => navigate('/record')}>
+  //         내플렌 {/* 버튼 텍스트 */}
+  //       </button>
+  //     </div>
+
+  //     {/* 아코디언 UI */}
+  //     <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+  //       <button className="close-btn" onClick={toggleAccordion}>X</button>
+  //       <div>
+  //         <button className="login-accordion-button" onClick={handleLoginRedirect}>로그인</button>
+  //         <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
+  //         <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
+  //       </div>
+  //     </div>
+
+  //     {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
+  //     <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
+  //   </div>
+  // );
+
+  // const { state } = useLocation(); // 전달받은 데이터
+  // const { location, startDate, endDate } = state || {}; // state가 없을 경우 안전하게 처리
+  
+  // return (
+  //   <div className="create-plan">
+  //     <h2>{location}에서의 여행 계획</h2>
+  //     <ul>
+  //       {/* 여행 기간의 각 날짜에 대해 입력 폼을 생성 */}
+  //       {days.map((day, index) => (
+  //         <li key={index}>
+  //           <div>
+  //             <strong>{day.toLocaleDateString()}</strong> {/* 각 날짜를 표시 */}
+  //             <div>
+  //               <label>
+  //                 시작 시간:
+  //                 <input
+  //                   type="time"
+  //                   value={timeRanges[index].start} // 시작 시간 값 설정
+  //                   onChange={(e) => handleTimeChange(index, 'start', e.target.value)} // 시작 시간 변경 핸들러
+  //                 />
+  //               </label>
+  //               <label>
+  //                 종료 시간:
+  //                 <input
+  //                   type="time"
+  //                   value={timeRanges[index].end} // 종료 시간 값 설정
+  //                   onChange={(e) => handleTimeChange(index, 'end', e.target.value)} // 종료 시간 변경 핸들러
+  //                 />
+  //               </label>
+  //             </div>
+  //             {/* 에러 메시지가 있을 경우 표시 */}
+  //             {errorMessages[index] && (
+  //               <p className="error-message">{errorMessages[index]}</p>
+  //             )}
+  //           </div>
+  //         </li>
+  //       ))}
+  //     </ul>
+  //     {/* 다음 단계로 이동 버튼 */}
+  //     <button
+  //       onClick={handleSubmit}
+  //       disabled={!isFormValid} // 폼이 유효하지 않으면 버튼 비활성화
+  //     >
+  //       다음 단계로
+  //     </button>
+  //   </div>
+  // );
+
+  return(
+    <div className="main_screen_on">
+
+      {/* 상단 버튼 영역 */}
+      <div className='main_menu0'>
+        <div className="upper-box"> 
+          <button className="logo-button" onClick={() => navigate('/main')} /> {/* 로고 버튼 */}
+          <button className="details-button" onClick={toggleAccordion}></button> {/* 상세 버튼 */}
+        </div>
       </div>
 
-      <h3 className='header0'>여행계획이 고민이신가요?</h3> {/* 질문 텍스트 */}
-      <div className="choice_box"> {/* 여행 계획 입력 컨테이너 */}
-        <div className="input-container"> {/* 입력 필드 컨테이너 */}
-          <input
-            className="input-field"
-            type="text"
-            placeholder="어디로 여행을 가시나요?" // 여행지 입력창 플레이스홀더
-            value={location} // 입력값 바인딩
-            onChange={handleInputChange} // 입력값 변경 핸들러
-          />
-          {suggestions.length > 0 && ( // 자동완성 목록 표시
-            <ul className="suggestions-list">
-              {suggestions.map((suggestion, index) => ( // 자동완성 항목 생성
-                <li
-                  key={index} // 고유 키
-                  onClick={() => handleSuggestionClick(suggestion)} // 클릭 시 여행지 설정
-                  className="suggestion-item"
-                >
-                  {suggestion} {/* 여행지 이름 */}
-                </li>
-              ))}
-            </ul>
-          )}
+        {/* 여행플렌 제작 UI */}
+        <div className='main_menu1'>
+          <h3 className='0_agonize'>
+            여행 계획이 고민이신가요?
+          </h3>
+
+          <h3 className='1_solution'>
+            여기 위플에 해답이 있습니다
+          </h3>
+
+          <button
+            className="submit-button"
+            onClick={() => navigate('/createplan')} // 일정 생성 시 로그인 여부 확인 후 동작
+          >
+            ai 통합 여행플레너 제작하기
+          </button>
         </div>
 
-        <DatePicker
-          className="datepicker-input"
-          selected={startDate} // 출발 날짜
-          onChange={handleStartDateChange} // 출발 날짜 변경 핸들러
-          minDate={today} // 오늘 이후 날짜만 선택 가능
-          dateFormat="yyyy/MM/dd" // 날짜 형식 설정
-          placeholderText="출발 날짜를 선택해주세요" // 플레이스홀더
-          dayClassName={dayClassName} // 날짜에 클래스 추가
-          calendarClassName="custom-calendar" // 커스텀 달력 클래스명
-        />
+        {/* 내플렌 UI */}
+        <div className='main_menu2'>
+          <h3 className='0_remind'>
+            이미 일정을 제작 하셨나요?
+          </h3>
 
-        <DatePicker
-          className="datepicker-input"
-          selected={endDate} // 도착 날짜
-          onChange={handleEndDateChange} // 도착 날짜 변경 핸들러
-          minDate={startDate || today} // 출발일 이후만 선택 가능
-          maxDate={startDate ? new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000) : null} // 출발일 기준 7일 이내로 제한
-          dateFormat="yyyy/MM/dd" // 날짜 형식 설정
-          placeholderText="도착 날짜를 선택해주세요 (최대일정 7일)" // 플레이스홀더
-          dayClassName={dayClassName} // 날짜에 클래스 추가
-          calendarClassName="custom-calendar" // 커스텀 달력 클래스명
-        />
+          <button
+            className="remind-button"
+            onClick={handleSubmit} // 일정 생성 시 로그인 여부 확인 후 동작
+            disabled={!isFormValid} // 폼 유효성 검사
+          >
+            내 플랜
+          </button>
+        </div>
 
-        <button
-          className="submit-button"
-          onClick={handleSubmit} // 일정 생성 시 로그인 여부 확인 후 동작
-          disabled={!isFormValid} // 폼 유효성 검사
-        >
-          일정 생성 {/* 버튼 텍스트 */}
-        </button>
-      </div>
+        {/* 문의하기 UI */}
+        <div className='main_menu3'>
+          <button
+            className="ask-button"
+            onClick={handleSubmit} // 일정 생성 시 로그인 여부 확인 후 동작
+            disabled={!isFormValid} // 폼 유효성 검사
+          >
+            문의하기
+          </button>
 
-      <div>
-        <button className='record-button' onClick={() => navigate('/record')}>
-          내플렌 {/* 버튼 텍스트 */}
-        </button>
-      </div>
 
-      {/* 아코디언 UI */}
-      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
-        <button className="close-btn" onClick={toggleAccordion}>X</button>
+        </div>
+
+        {/* 공지사항 UI */}
+        <div className='main_menu4'>
+          <button
+            className="notice-button"
+            onClick={handleSubmit} // 일정 생성 시 로그인 여부 확인 후 동작
+            disabled={!isFormValid} // 폼 유효성 검사
+          >
+            공지사항
+          </button>
+        </div>
+
+
+        {/* 아코디언 UI */}
+        <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+          <button className="close-btn" onClick={toggleAccordion}>X</button>
         <div>
-          <button className="login-accordion-button" onClick={handleLoginRedirect}>로그인</button>
-          <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
-          <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
-        </div>
-      </div>
+           <button className="login-accordion-button" onClick={handleLoginRedirect}>로그인</button>
+           <button className="ask-accordion-button" onClick={() => navigate('/contact')}>문의하기</button>
+           <button className="ask-accordion-button" onClick={() => navigate('/contact')}>공지사항</button>
+         </div>
+       </div>
 
-      {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
-      <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
+       {/* 오버레이 (아코디언이 열릴 때 화면에 회색으로 덮어줌) */}
+       <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
+
+
+      
     </div>
   );
 }

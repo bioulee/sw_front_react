@@ -25,10 +25,7 @@ function NavigationButtons() {
   return (
     <div className="navigation-buttons">
       <button className="back-button" onClick={() => navigate(-1)}>
-        ⬅️
-      </button>
-      <button className="forward-button" onClick={() => navigate(1)}>
-        ➡️
+         뒤로가기
       </button>
     </div>
   );

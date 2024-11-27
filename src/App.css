@@ -31,8 +31,7 @@
 }
 
 /* Back and Forward button styles */
-.back-button,
-.forward-button {
+.back-button {
   background-color: #007bff;
   color: white;
   border: none;
