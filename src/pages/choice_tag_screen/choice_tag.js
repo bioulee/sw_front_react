@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './choice_tag.css'
 
 function SelectPreferences() {
   const navigate = useNavigate();
+
+  // 전달받은 데이터
+  const { state } = useLocation();
+  const { location, startDate, endDate, timeRanges } = state || {};
 
   // 관광 유형 태그
   const tagOptions = [
@@ -29,7 +33,7 @@ function SelectPreferences() {
 
   const handleNext = () => {
     // 선택된 데이터와 함께 다음 화면으로 이동
-    navigate('/loading', { state: { selectedTags, transportation } });
+    navigate('/loading', { state: { location,startDate, endDate, timeRanges, selectedTags, transportation } });
   };
 
   return (

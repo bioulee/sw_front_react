@@ -1,12 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './loading.css'
 
 function LoadingScreen() {
   const [progress, setProgress] = useState(0); // 진행률 상태
   const navigate = useNavigate();
 
+  // 전달받은 데이터
+  const { state } = useLocation();
+  const { location, startDate, endDate, timeRanges, selectedTags, transportation  } = state || {};
+  // 전달 데이터
+  const requestData = {
+    location: location,
+    startDate: new Date(startDate).toISOString().split("T")[0], // ISO 8601 형식으로 변환
+    endDate: new Date(endDate).toISOString().split("T")[0],
+    timeRanges: timeRanges, // 객체 배열 형태
+    selectedTags: selectedTags,
+    transportation: transportation,
+  };
+
+
+  //서버로 데이터 전달
+  const travelplanmaking = () => {
+    console.log('전달할 데이터 :', requestData);
+
+    //서버로 데이터 전송
+    fetch("http://localhost:8080/TravelPlanMaking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+      credentials: "include", // 인증 정보를 포함하려면 추가
+    });
+  };
+
   useEffect(() => {
+    travelplanmaking();
+
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress < 100) {
@@ -23,7 +54,9 @@ function LoadingScreen() {
       navigate('/myplan'); // 다음 화면 경로 설정
     }, 10000); // 20초 후 이동
 
+
     return () => {
+
       clearInterval(interval);
       clearTimeout(timeout);
     };
