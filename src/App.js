@@ -11,6 +11,7 @@ const Loading = lazy(() => import('./pages/loading_screen/loading.js'));
 const MyPlan = lazy(() => import('./pages/myplan_screen/myplan.js'));
 const Login = lazy(() => import('./pages/login_screen/login.js'));
 const SignUp = lazy(() => import('./pages/create_account_screen/create_account.js'));
+const Record = lazy(() => import('./pages/record_screen/record.js'));
 
 function NavigationButtons() {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ function App() {
               <Route path="/myplan" element={<MyPlan />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/record" element={<Record />} />
             </Routes>
           </div>
           <NavigationButtons />

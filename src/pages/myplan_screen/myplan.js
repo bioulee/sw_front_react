@@ -125,60 +125,60 @@ function Myplan() { // Myplan 컴포넌트 정의
     };
 
     return (
-        <div className="app"> {/* 메인 앱 컨테이너 */}
-            <div id="map" className="map"></div> {/* 지도 표시 영역 */}
+        <div className="myplan_app"> {/* 메인 앱 컨테이너 */}
+            <div id="map" className="myplan_map"></div> {/* 지도 표시 영역 */}
             <div
-                className={`accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
+                className={`myplan_accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
             >
-                <div className="accordion-header"> {/* 아코디언 헤더 영역 */}
+                <div className="myplan_accordion-header"> {/* 아코디언 헤더 영역 */}
                     <button
-                        className="main-go" // 버튼 클래스 설정
+                        className="myplan_main-go" // 버튼 클래스 설정
                         onClick={() => navigate('/main')} // 일정 저장 버튼 클릭 시 모달 열기
                     >
                         메인으로 나가기
                     </button>
                     <button
                         onClick={() => setAccordionExpanded((prev) => !prev)} // 클릭 시 아코디언 상태 토글
-                        className="arrow-btn" // 버튼 클래스 설정
+                        className="myplan_arrow-btn" // 버튼 클래스 설정
                     >
                         {accordionExpanded ? "⬇️" : "⬆️"} {/* 아코디언 상태에 따른 버튼 텍스트 */}
                     </button>
                     <button
-                        className="record-go" // 버튼 클래스 설정
+                        className="myplan_record-go" // 버튼 클래스 설정
                         onClick={handleSaveClick} // 일정 저장 버튼 클릭 시 모달 열기
                     >
                         일정 저장
                     </button>
                 </div>
 
-                <div className="accordion-content"> {/* 아코디언 내용 영역 */}
+                <div className="myplan_accordion-content"> {/* 아코디언 내용 영역 */}
                     {/* 여행 정보 섹션 (아코디언 상단에 위치하도록 이동) */}
-                    <div className="travel-info">
+                    <div className="myplan_travel-info">
                         <p>총 여행기간: 11/20(화) [10:00] ~ 11/29(목) [20:00]</p>
                         <p>예상 여행 경비: 1,270,000원</p>
                     </div>
 
                     {/* 아코디언 아이템 목록 */}
                     {data.map((item, index) => ( // data 배열을 순회하며 아코디언 아이템 생성
-                        <div key={item.id} className="accordion-item" data-index={index + 1}> {/* 개별 아코디언 아이템 및 일자 표시 */}
-                            <div className="item-content"> {/* 아이템 내용 */}
-                                <div className="item-image-container"> {/* 이미지 컨테이너 */}
-                                    <p className="viewing-time">{item.time}</p> {/* 방문 시간 표시 */}
+                        <div key={item.id} className="myplan_accordion-item" data-index={index + 1}> {/* 개별 아코디언 아이템 및 일자 표시 */}
+                            <div className="myplan_item-content"> {/* 아이템 내용 */}
+                                <div className="myplan_item-image-container"> {/* 이미지 컨테이너 */}
+                                    <p className="myplan_viewing-time">{item.time}</p> {/* 방문 시간 표시 */}
                                     <img src={item.image} alt={item.title} /> {/* 장소 이미지 */}
                                 </div>
-                                <div className="item-details"> {/* 아이템 상세 정보 */}
-                                    <div className="item-header"> {/* 아이템 헤더 */}
+                                <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
+                                    <div className="myplan_item-header"> {/* 아이템 헤더 */}
                                         <h2>{item.title}</h2> {/* 장소 이름 */}
-                                        <div className="meta-info"> {/* 추가 정보 */}
-                                            <span className="likes">❤️ {item.likes}</span> {/* 좋아요 수 */}
-                                            <span className="rating">⭐ {item.rating}</span> {/* 평점 */}
+                                        <div className="myplan_meta-info"> {/* 추가 정보 */}
+                                            <span className="myplan_likes">❤️ {item.likes}</span> {/* 좋아요 수 */}
+                                            <span className="myplan_rating">⭐ {item.rating}</span> {/* 평점 */}
                                         </div>
                                     </div>
-                                    <p className="description">{item.description}</p> {/* 장소 설명 */}
-                                    <div className="button-group"> {/* 버튼 그룹 */}
-                                        <button className="route-button">가는법</button> {/* 가는법 버튼 */}
-                                        <span className="travel-time">{item.travelTime} min</span> {/* 이동 시간 */}
-                                        <button className="place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
+                                    <p className="myplan_description">{item.description}</p> {/* 장소 설명 */}
+                                    <div className="myplan_button-group"> {/* 버튼 그룹 */}
+                                        <button className="myplan_route-button">가는법</button> {/* 가는법 버튼 */}
+                                        <span className="myplan_travel-time">{item.travelTime} min</span> {/* 이동 시간 */}
+                                        <button className="myplan_place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
                                     </div>
                                 </div>
                             </div>
@@ -189,9 +189,9 @@ function Myplan() { // Myplan 컴포넌트 정의
 
             {/* 모달 오버레이 */}
             {isModalOpen && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <button className="close-btn" onClick={handleModalClose}>X</button>
+                <div className="myplan_modal-overlay">
+                    <div className="myplan_modal">
+                        <button className="myplan_close-btn" onClick={handleModalClose}>X</button>
                         <h2>일정 저장</h2>
                         <input
                             type="text"
@@ -199,15 +199,15 @@ function Myplan() { // Myplan 컴포넌트 정의
                             onChange={handleSaveNameChange}
                             placeholder="저장할 이름을 입력하세요"
                         />
-                        <button className="save-btn" onClick={handleSaveConfirm}>저장하기</button>
+                        <button className="myplan_save-btn" onClick={handleSaveConfirm}>저장하기</button>
                     </div>
                 </div>
             )}
 
             {/* 저장 성공 메시지 */}
             {isSaveSuccess && (
-                <div className="modal-overlay">
-                    <div className="modal">
+                <div className="myplan_modal-overlay">
+                    <div className="myplan_modal">
                         <p>저장되었습니다!</p>
                     </div>
                 </div>

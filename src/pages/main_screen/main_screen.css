@@ -88,6 +88,8 @@
   border-radius: 8px; /* 모서리를 둥글게 설정 */
   background-color: #ffffff; /* 버튼 배경색을 흰색으로 설정 */
   background-image: url('/src/img/record.png'); /* 버튼 배경에 이미지 추가 */
+  opacity: 1; /* 처음에는 투명하게 */
+  transition: opacity 1s ease-in-out; 
 }
 
 /* 자동완성 목록 스타일 */
