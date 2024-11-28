@@ -33,6 +33,7 @@ function SelectPreferences() {
 
   const handleNext = () => {
     // 선택된 데이터와 함께 다음 화면으로 이동
+
     navigate('/loading', { state: { location,startDate, endDate, timeRanges, selectedTags, transportation } });
   };
 

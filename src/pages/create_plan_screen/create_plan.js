@@ -53,7 +53,6 @@ function CreatePlan() {
       alert('시간 설정에 오류가 있습니다.');
       return;
     }
-
     navigate('/choicetag', { state: { location, startDate, endDate, timeRanges } });
   };
 

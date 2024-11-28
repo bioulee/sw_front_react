@@ -12,8 +12,8 @@ function LoadingScreen() {
   // 전달 데이터
   const requestData = {
     location: location,
-    startDate: new Date(startDate).toISOString().split("T")[0], // ISO 8601 형식으로 변환
-    endDate: new Date(endDate).toISOString().split("T")[0],
+    startDate: startDate.toLocaleDateString("en-CA"), // ISO 8601 형식으로 변환
+    endDate: endDate.toLocaleDateString("en-CA"),
     timeRanges: timeRanges, // 객체 배열 형태
     selectedTags: selectedTags,
     transportation: transportation,
