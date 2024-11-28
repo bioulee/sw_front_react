@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; // 날짜 선택기 라이브러리를 가져옴
 import 'react-datepicker/dist/react-datepicker.css'; // 날짜 선택기의 스타일을 가져옴
 import './create_plan.css'; // 해당 컴포넌트에 대한 스타일 시트를 가져옴
@@ -25,7 +25,7 @@ const koreanToRomanized = (korean) => {
 
 // CreatePlan 컴포넌트 정의
 function CreatePlan() {
-  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅을 사용
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 후크를 사용
   const [location, setLocation] = useState(''); // 여행지 입력 값을 상태로 관리
   const [startDate, setStartDate] = useState(null); // 출발 날짜를 상태로 관리
   const [endDate, setEndDate] = useState(null); // 도착 날짜를 상태로 관리
@@ -36,24 +36,18 @@ function CreatePlan() {
   const [accommodationAddress, setAccommodationAddress] = useState('');
 
   const [suggestions, setSuggestions] = useState([]); // 자동완성 목록을 상태로 관리
-  const destinations = ['서울', '부산', '제주', '강릉', '대구', '인천', '속초', '전주', '성남']; // 여행지 목록을 정의
+  const destinations = ['서울', '부산', '제주', '강릉', '대구', '인천', '속초', '전주', '성남'];
+  const tagOptions = ['문화유산', '쇼핑', '전통시장', '휴양지', '래딩마크', '자연', '공원', '카지노', '스파', '예술', '테마파크'];
+  const hotelTagOptions = ['1성', '2성', '3성', '4성', '5성'];
 
-    // 관광 유형 태그
-  const tagOptions = [
-    '문화유산', '쇼핑', '전통시장', '휴양지', '랜드마크', 
-    '자연', '공원', '카지노', '스파', '예술', '테마파크'
-  ];
+  const [days, setDays] = useState([]);
+  const [timeRanges, setTimeRanges] = useState([]);
+  const [errorMessages, setErrorMessages] = useState([]);
 
-      // 관광 유형 태그
-  const hotelTagOptions = [
-    '1성','2성','3성','4성','5성'
-  ];
-
-    
   // 사용자가 자동완성 목록의 항목을 클릭했을 때 실행되는 함수
   const handleSuggestionClick = (suggestion) => {
     setLocation(suggestion); // 선택된 항목으로 여행지 상태 업데이트
-    setSuggestions([]); // 자동완성 목록을 숨김
+    setSuggestions([]); // 자동완성 목록을 숨기기
   };
 
   // 여행지 입력 필드가 변경될 때 실행되는 함수
@@ -106,66 +100,51 @@ function CreatePlan() {
 
   // 여행 기간을 동적으로 계산하는 함수
   const calculateDays = () => {
-    if (!startDate || !endDate) { // 출발일과 도착일이 설정되지 않았으면 빈 배열 반환
+    if (!startDate || !endDate) { // 출발일과 도착일이 설정되지 않았으면 빈 번역 반환
       return [];
     }
 
-    const days = []; // 여행 기간을 담을 배열 초기화
+    const days = []; // 여행 기간을 담을 번역 초기화
     let currentDate = new Date(startDate); // 출발 날짜로 초기화
 
     while (currentDate <= endDate) { // 출발 날짜부터 도착 날짜까지 반복
-      days.push(new Date(currentDate)); // 현재 날짜를 days 배열에 추가
-      currentDate.setDate(currentDate.getDate() + 1); // 현재 날짜를 하루씩 증가시킴
+      days.push(new Date(currentDate)); // 현재 날짜를 days 번역에 추가
+      currentDate.setDate(currentDate.getDate() + 1); // 현재 날짜를 하루씩 증가시키기
     }
 
-    return days; // 여행 기간 배열 반환
+    return days; // 여행 기간 번역 반환
   };
 
-  const days = calculateDays(); // 여행 기간을 동적으로 계산하여 days 배열에 저장
-  const [timeRanges, setTimeRanges] = useState(
-    days.map(() => ({ start: '10:00', end: '20:00' })) // 각 날짜마다 기본 시간 범위 설정
-  );
+  useEffect(() => {
+    if (startDate && endDate) {
+      const calculatedDays = calculateDays();
+      setDays(calculatedDays);
+      setTimeRanges(calculatedDays.map(() => ({ start: '10:00', end: '20:00' })));
+      setErrorMessages(calculatedDays.map(() => null));
+    }
+  }, [startDate, endDate]);
 
-  const [errorMessages, setErrorMessages] = useState(
-    days.map(() => null) // 각 날짜마다 에러 메시지를 null로 초기화
-  );
-
-  // 각 날짜의 시간 변경 시 호출되는 함수
+  // 각 날자의 시간 변경 시 호출되는 함수
   const handleTimeChange = (index, field, value) => {
     const updatedTimeRanges = [...timeRanges]; // 기존 시간 범위를 복사
-    updatedTimeRanges[index][field] = value; // 해당 날짜의 시작 또는 종료 시간 업데이트
+    updatedTimeRanges[index][field] = value; // 해당 날자의 시작 또는 종료 시간 업데이트
 
     const start = updatedTimeRanges[index].start; // 시작 시간 가져옴
     const end = updatedTimeRanges[index].end; // 종료 시간 가져옴
     let errorMessage = null; // 에러 메시지 초기화
 
-    if (field === 'start' && value >= end) { // 시작 시간이 종료 시간 이후일 경우 에러 설정
+    if (field === 'start' && value >= end) { // 시작 시간이 종료 시간 이하일 경우 에러 설정
       errorMessage = '시작 시간은 종료 시간보다 빠를 수 없습니다.';
     }
     if (field === 'end' && value <= start) { // 종료 시간이 시작 시간 이전일 경우 에러 설정
-      errorMessage = '종료 시간은 시작 시간보다 느려야 합니다.';
+      errorMessage = '종료 시간은 시작 시간보다 늦어야 합니다.';
     }
 
     const updatedErrors = [...errorMessages]; // 기존 에러 메시지를 복사
-    updatedErrors[index] = errorMessage; // 해당 날짜의 에러 메시지 업데이트
+    updatedErrors[index] = errorMessage; // 해당 날자의 에러 메시지 업데이트
     setErrorMessages(updatedErrors); // 상태 업데이트
     setTimeRanges(updatedTimeRanges); // 시간 범위 상태 업데이트
   };
-
-  // 모든 에러 메시지가 null인지 확인하여 폼 유효성 검사
-  //const isFormValid = errorMessages.every((msg) => msg === null);
-
-  // // 제출 버튼 클릭 시 호출되는 함수
-  // const handleSubmit = () => {
-  //   if (!isFormValid) { // 폼이 유효하지 않을 경우 알림 표시
-  //     alert('시간 설정에 오류가 있습니다.');
-  //     return;
-  //   }
-
-  //   // 폼이 유효하면 다음 페이지로 이동하고 필요한 상태를 전달
-  //   navigate('/choicetag', { state: { location, startDate, endDate, timeRanges } });
-  // };
-
 
   const handleTagClick = (tag) => {
     setSelectedTags((prevSelected) =>
@@ -187,14 +166,15 @@ function CreatePlan() {
   };
 
   const handleNext = () => {
-    // 선택된 데이터와 함께 다음 화면으로 이동
-    navigate('/loading', { state: { location,startDate, endDate, timeRanges, selectedTags, selectedHotelTags, transportation } });
+    // 선택된 데이터와 함께 단계 화면으로 이동
+    console.log(timeRanges);
+    navigate('/loading', { state: { location, startDate, endDate, timeRanges, selectedTags, selectedHotelTags, transportation, accommodationAddress } });
   };
 
-  // 컴포넌트 렌더링
+  // 컴포넌트 레드링
   return (
     <div className="create-plan_on">
-      {/* 상단 로고 버튼 영역 - 로고 버튼을 눌렀을 때 메인 페이지로 이동 */}
+      {/* 상단 로고 버튼 영역 - 로고 버튼을 눌러스면 메인 페이지로 이동 */}
       <div className="main_menu0_create">
         <div className="upper-box_create">
           <button className="logo-button_create" onClick={() => navigate('/main')} /> {/* 로고 버튼 */}
@@ -230,7 +210,7 @@ function CreatePlan() {
 
       {/* 여행 기간 입력 영역 */}
       <div className="when_create">
-        <h3 className="when_ask_create">일정이 어떻게 되시나요?</h3>
+        <h3 className="when_ask_create">일정이 어디까지 되시나요?</h3>
 
         <DatePicker
           className="datepicker-input" // 날짜 선택기 필드의 클래스명
@@ -238,9 +218,9 @@ function CreatePlan() {
           onChange={handleStartDateChange} // 출발 날짜가 변경될 때 호출되는 함수
           minDate={today} // 선택 가능한 최소 날짜를 오늘로 설정
           dateFormat="yyyy/MM/dd" // 날짜 형식을 "yyyy/MM/dd"로 설정
-          placeholderText="출발 날짜를 선택해주세요" // 날짜 선택기 필드의 플레이스홀더 텍스트
+          placeholderText="출발 날짜를 선택해주세요" // 날짜 선택기 필드의 플레이스홀 텍스트
           dayClassName={dayClassName} // 각 날짜에 적용할 CSS 클래스명 결정하는 함수
-          calendarClassName="custom-calendar" // 달력의 커스텀 스타일 클래스명
+          calendarClassName="custom-calendar" // 달러의 커스텀 스타일 클래스명
         />
 
         <DatePicker
@@ -250,19 +230,19 @@ function CreatePlan() {
           minDate={startDate || today} // 출발 날짜 이후부터 선택 가능
           maxDate={startDate ? new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000) : null} // 출발 날짜 기준으로 최대 7일 이후까지 선택 가능
           dateFormat="yyyy/MM/dd" // 날짜 형식을 "yyyy/MM/dd"로 설정
-          placeholderText="도착 날짜를 선택해주세요 (최대일정 7일)" // 날짜 선택기 필드의 플레이스홀더 텍스트
+          placeholderText="도착 날짜를 선택해주세요 (최대일정 7일)" // 날짜 선택기 필드의 플레이스홀 텍스트
           dayClassName={dayClassName} // 각 날짜에 적용할 CSS 클래스명 결정하는 함수
-          calendarClassName="custom-calendar" // 달력의 커스텀 스타일 클래스명
+          calendarClassName="custom-calendar" // 달러의 커스텀 스타일 클래스명
         />
       </div>
 
       {/* 시간 입력 영역 */}
       <div className="time_create">
-        <h3 className="time_ask_create">시간이 어떻게 되시나요?</h3>
+        <h3 className="time_ask_create">시간이 어디까지 되시나요?</h3>
 
         <ul>
           {days.map((day, index) => (
-            <li key={index}> {/* 각 날짜에 대해 고유한 키를 부여 */}
+            <li key={index}> {/* 각 날자에 대해 고유한 키를 붙여 */}
               <div>
                 <strong>{day.toLocaleDateString()}</strong> {/* 여행 날짜를 표시 */}
                 <div>
@@ -340,7 +320,7 @@ function CreatePlan() {
       </div>
 
       <div>
-              {/* 숙소 예약 질문 및 입력창 */}
+              {/* 숙소 예약 지지 및 입력창 */}
       <h3>이미 숙소를 예약하셨나요?</h3>
       <input
         type="text"
@@ -352,12 +332,10 @@ function CreatePlan() {
       </div>
 
       {/* 일성 생성 */}
-      {/* 일정 생성 버튼 클릭 시 handleSubmit 함수 호출, 폼이 유효하지 않으면 버튼 비활성화 */}
+      {/* 일정 생성 버튼 클릭 시 handleNext 함수 호출 */}
       <button onClick={handleNext}>
         일정 생성
       </button>
-
-
     </div>
   );
 }
