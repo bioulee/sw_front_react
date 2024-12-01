@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; // React와 필요한 훅(useState, useEffect) 가져오기
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './myplan.css'; // 해당 컴포넌트의 스타일 가져오기
 
 
@@ -10,6 +10,25 @@ function Myplan() { // Myplan 컴포넌트 정의
     const [isSaveSuccess, setIsSaveSuccess] = useState(false); // 저장 성공 메시지 상태 관리
 
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 가져옴
+
+    // useLocation을 사용하여 전달받은 state 데이터 접근
+    const { state } = useLocation();
+    const travelPlans = state?.travelPlans; // 전달받은 travelPlans 데이터
+    const getFormattedDate = (dateString) => {
+        const date = new Date(dateString);
+
+        // 날짜를 'MM/DD' 형식으로 포맷
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 0-based index 보정
+        const day = date.getDate().toString().padStart(2, '0');
+
+        // 요일 추출
+        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+        const weekday = weekdays[date.getDay()];
+
+        return `${month}/${day}(${weekday})`; // 'MM/DD(요일)' 형식
+    };
+    // 로그로 출력
+    console.log('전달받은 데이터:', travelPlans);
 
     useEffect(() => { // 컴포넌트가 마운트될 때 실행
         const script = document.createElement("script"); // 새로운 스크립트 태그 생성
@@ -25,36 +44,82 @@ function Myplan() { // Myplan 컴포넌트 정의
                     zoom: 12, // 지도 줌 레벨 설정
                 });
 
-                const locations = [ // 지도에 표시할 장소 목록
-                    // 숙소
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 0 },
-                    // 1일차
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 1 },
-                    { lat: 37.512, lng: 127.102, name: "롯데타워", day: 1 },
-                    { lat: 37.504, lng: 127.062, name: "만돈", day: 1 },
-                    { lat: 37.511, lng: 127.059, name: "코엑스", day: 1 },
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 1 },
-                    // 2일차
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 2 },
-                    { lat: 37.570, lng: 126.985, name: "경복궁", day: 2 },
-                    { lat: 37.575, lng: 126.976, name: "북촌한옥마을", day: 2 },
-                    { lat: 37.579, lng: 126.977, name: "인사동", day: 2 },
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 2 },
-                    // 3일차
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 3 },
-                    { lat: 37.533, lng: 126.993, name: "남산타워", day: 3 },
-                    { lat: 37.551, lng: 126.988, name: "명동", day: 3 },
-                    { lat: 37.566, lng: 126.978, name: "청계천", day: 3 },
-                    { lat: 37.565, lng: 126.978, name: "숙소", day: 3 },
-                ];
+                // const locations = travelPlans?.flatMap((plan, dayIndex) =>
+                //     plan.TotalSpotList?.map((spot, index) => ({
+                //         lat: spot.SpotLat,
+                //         lng: spot.SpotLng,
+                //         name: spot.SpotName,
+                //         day: dayIndex + 1, // 여행 일자를 1부터 시작
+                //     })),
+                //     ) || []; // travelPlans가 없거나 TotalSpotList가 없으면 빈 배열 반환
 
-                let dayMarkersCount = { 1: 0, 2: 0, 3: 0 }; // 일자별 마커 개수 관리
+                const locations = travelPlans?.flatMap((plan, dayIndex) => {
+                    // 여행지 데이터 처리
+                    const spots = plan.TotalSpotList?.map((spot, index) => ({
+                        lat: spot.SpotLat,
+                        lng: spot.SpotLng,
+                        name: spot.SpotName,
+                        day: dayIndex + 1, // 여행 일자
+                    })) || [];
+
+                    // 숙소 데이터를 각 일자 맨 마지막에 추가
+                    const hotel = {
+                        lat: plan.HotelData.Lat, // 숙소 위도
+                        lng: plan.HotelData.Lng, // 숙소 경도
+                        name:  "숙소", // 숙소 이름, 기본값 "숙소"
+                        day: dayIndex + 1, // 여행 일자
+                    };
+
+                    // 여행지 데이터를 모두 추가하고 그 뒤에 숙소 데이터 추가
+                    return [...spots, hotel];
+                }) || [];
+
+
+                // const locations = [ // 지도에 표시할 장소 목록
+                //     // 숙소
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 0 },
+                //     // 1일차
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 1 },
+                //     { lat: 37.512, lng: 127.102, name: "롯데타워", day: 1 },
+                //     { lat: 37.504, lng: 127.062, name: "만돈", day: 1 },
+                //     { lat: 37.511, lng: 127.059, name: "코엑스", day: 1 },
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 1 },
+                //     // 2일차
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 2 },
+                //     { lat: 37.570, lng: 126.985, name: "경복궁", day: 2 },
+                //     { lat: 37.575, lng: 126.976, name: "북촌한옥마을", day: 2 },
+                //     { lat: 37.579, lng: 126.977, name: "인사동", day: 2 },
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 2 },
+                //     // 3일차
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 3 },
+                //     { lat: 37.533, lng: 126.993, name: "남산타워", day: 3 },
+                //     { lat: 37.551, lng: 126.988, name: "명동", day: 3 },
+                //     { lat: 37.566, lng: 126.978, name: "청계천", day: 3 },
+                //     { lat: 37.565, lng: 126.978, name: "숙소", day: 3 },
+                //
+                // ];
+
+                let dayMarkersCount = {}; // 일자별 마커 개수 관리, 초기값을 빈 객체로 설정
+                const markerColors = [
+                    "#FF0000", // Day 1: 강렬한 빨강
+                    "#0000FF", // Day 2: 선명한 파랑
+                    "#00FF00", // Day 3: 밝은 초록
+                    "#FFA500", // Day 4: 밝은 주황
+                    "#800080", // Day 5: 짙은 보라
+                    "#FFFF00", // Day 6: 눈부신 노랑
+                    "#00FFFF", // Day 7: 청록
+                    "#FF1493", // Day 8: 강렬한 핑크
+                    "#8B4513", // Day 9: 갈색 (브라운)
+                    "#A9A9A9", // Day 10: 어두운 회색
+                ];
 
                 locations.forEach((location) => { // 각 장소에 대해 마커 추가
                     if (location.day > 0) {
+                        // 해당 day에 대한 마커 개수를 증가시킴
                         dayMarkersCount[location.day] = (dayMarkersCount[location.day] || 0) + 1;
                     }
-                    const markerColor = location.day === 1 ? "#FF6B6B" : location.day === 2 ? "#4DA8DA" : location.day === 3 ? "#51C059" : "#9B59B6";
+
+                    const markerColor = markerColors[(location.day - 1) % markerColors.length];
                     const markerLabel = location.day > 0 ? dayMarkersCount[location.day].toString() : "";
                     const marker = new window.google.maps.Marker({ // Google Maps 마커 생성
                         position: { lat: location.lat, lng: location.lng }, // 마커 위치 설정
@@ -75,17 +140,25 @@ function Myplan() { // Myplan 컴포넌트 정의
                     });
                 });
 
-                // 일정 사이의 경로를 선으로 연결 (일자별로 다른 색상 적용)
-                let dayPaths = { 1: [], 2: [], 3: [] };
 
+                // 일정 사이의 경로를 선으로 연결 (일자별로 동적으로 관리)
+                let dayPaths = {};
+                // locations 배열을 순회하며 dayPaths를 생성
                 locations.forEach((location) => {
                     if (location.day > 0) {
+                        // 해당 day에 경로가 없으면 초기화
+                        if (!dayPaths[location.day]) {
+                            dayPaths[location.day] = [];
+                        }
+                        // 현재 location을 해당 day의 경로에 추가
                         dayPaths[location.day].push({ lat: location.lat, lng: location.lng });
                     }
                 });
 
+                // dayPaths를 순회하며 Polyline 생성 및 지도에 추가
                 Object.keys(dayPaths).forEach((day) => {
-                    const strokeColor = day === "1" ? "#FF6B6B" : day === "2" ? "#4DA8DA" : "#51C059";
+                    const dayIndex = parseInt(day, 10) - 1; // day를 0부터 시작하는 인덱스로 변환
+                    const strokeColor = markerColors[dayIndex % markerColors.length]; // 색상 선택
                     const travelPath = new window.google.maps.Polyline({
                         path: dayPaths[day],
                         geodesic: true,
@@ -93,7 +166,7 @@ function Myplan() { // Myplan 컴포넌트 정의
                         strokeOpacity: 1.0,
                         strokeWeight: 2,
                     });
-                    travelPath.setMap(map);
+                    travelPath.setMap(map); // 지도에 경로 추가
                 });
             } catch (error) {
                 console.error("지도 초기화 중 오류가 발생했습니다:", error);
@@ -123,6 +196,8 @@ function Myplan() { // Myplan 컴포넌트 정의
             handleModalClose();
         }, 1000); // 1초 동안 메시지 표시 후 모달 닫기
     };
+
+
 
     return (
         <div className="app"> {/* 메인 앱 컨테이너 */}
@@ -154,34 +229,64 @@ function Myplan() { // Myplan 컴포넌트 정의
                 <div className="accordion-content"> {/* 아코디언 내용 영역 */}
                     {/* 여행 정보 섹션 (아코디언 상단에 위치하도록 이동) */}
                     <div className="travel-info">
-                        <p>총 여행기간: 11/20(화) [10:00] ~ 11/29(목) [20:00]</p>
-                        <p>예상 여행 경비: 1,270,000원</p>
-                    </div>
+                        {/*{travelPlans.map((plan, index) => ())}*/}
+                            <div className="plan-info">
+                                <p>
+                                    총 여행기간:
+                                        {getFormattedDate(travelPlans[0]?.Date)} [{travelPlans[0]?.DateStartTime}] ~
+                                        {getFormattedDate(travelPlans[travelPlans.length - 1]?.Date)} [{travelPlans[travelPlans.length - 1]?.DateEndTime}]
+                                </p>
+                                {/*<p>날씨: {plan.Weather}</p>*/}
+                                {/*<p>예상 여행 경비: {plan.HotelData?.expectedCost || '정보 없음'}</p>*/}
+                            </div>
 
-                    {/* 아코디언 아이템 목록 */}
-                    {data.map((item, index) => ( // data 배열을 순회하며 아코디언 아이템 생성
-                        <div key={item.id} className="accordion-item" data-index={index + 1}> {/* 개별 아코디언 아이템 및 일자 표시 */}
-                            <div className="item-content"> {/* 아이템 내용 */}
-                                <div className="item-image-container"> {/* 이미지 컨테이너 */}
-                                    <p className="viewing-time">{item.time}</p> {/* 방문 시간 표시 */}
-                                    <img src={item.image} alt={item.title} /> {/* 장소 이미지 */}
-                                </div>
-                                <div className="item-details"> {/* 아이템 상세 정보 */}
-                                    <div className="item-header"> {/* 아이템 헤더 */}
-                                        <h2>{item.title}</h2> {/* 장소 이름 */}
-                                        <div className="meta-info"> {/* 추가 정보 */}
-                                            <span className="likes">❤️ {item.likes}</span> {/* 좋아요 수 */}
-                                            <span className="rating">⭐ {item.rating}</span> {/* 평점 */}
+                    </div>
+                    {travelPlans.map((plan) => ( // data 배열을 순회하며 아코디언 아이템 생성
+                        <div>
+                            <div className="accordion-item">
+                                <h2>{getFormattedDate(plan.Date)}</h2>
+                                <h4>{plan.Weather}</h4>
+                            </div>
+                            {/* 개별 아코디언 아이템 및 일자 표시 */}
+                            {plan.TotalSpotList.map((SpotList, index) => (
+                                <div key={index + 1} className="accordion-item" data-index={index + 1}>
+                                    <div className="item-content"> {/* 아이템 내용 */}
+                                        <div className="item-image-container"> {/* 이미지 컨테이너 */}
+                                            <p className="viewing-time">
+                                                {SpotList.SpotStartTime} ~ {SpotList.SpotEndTime}
+                                            </p> {/* 방문 시간 표시 */}
+                                            <img src={SpotList.SpotPhoto} alt={SpotList.SpotName} /> {/* 장소 이미지 */}
+                                        </div>
+                                        <div className="item-details"> {/* 아이템 상세 정보 */}
+                                            <div className="item-header"> {/* 아이템 헤더 */}
+                                                <h2>{SpotList.SpotName}</h2> {/* 장소 이름 */}
+                                                <div className="meta-info"> {/* 추가 정보 */}
+                                                    <span className="likes">❤️ {SpotList.SpotTotaltips}</span> {/* 좋아요 수 */}
+                                                    <span className="rating">⭐ {SpotList.SpotRating}</span> {/* 평점 */}
+                                                </div>
+                                            </div>
+                                            <p className="description">{SpotList.SpotDescription}</p> {/* 장소 설명 */}
+                                            <div className="button-group"> {/* 버튼 그룹 */}
+                                                <button className="route-button">가는법</button> {/* 가는법 버튼 */}
+                                                <span className="travel-time">{SpotList.DirectionTime} min</span> {/* 이동 시간 */}
+                                                <button className="place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
+                                            </div>
                                         </div>
                                     </div>
-                                    <p className="description">{item.description}</p> {/* 장소 설명 */}
-                                    <div className="button-group"> {/* 버튼 그룹 */}
-                                        <button className="route-button">가는법</button> {/* 가는법 버튼 */}
-                                        <span className="travel-time">{item.travelTime} min</span> {/* 이동 시간 */}
-                                        <button className="place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
+                                </div>
+                            ))}
+
+                            <div className="accordion-item">
+                                <div className="item-details"> {/* 아이템 상세 정보 */}
+                                    <div className="item-header"> {/* 아이템 헤더 */}
+                                        <h2>숙소</h2> {/* 장소 이름 */}
+                                        <div className="meta-info"> {/* 추가 정보 */}
+                                            <span className="likes">{plan.HotelData?.Address}</span> {/* 좋아요 수 */}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     ))}
                 </div>
