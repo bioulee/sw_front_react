@@ -1,0 +1,79 @@
+/* MyPlan 컴포넌트의 스타일을 정의한 CSS */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  h1 {
+    font-size: 28px;
+    color: #333;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #555;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li.plan-item {
+    background-color: #fafafa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    width: calc(100% - 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  
+  li.plan-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  strong {
+    color: #333;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  /* 버튼 스타일 같은 것이 필요하다면 아래에 추가 */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

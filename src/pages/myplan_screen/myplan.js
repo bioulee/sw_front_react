@@ -44,6 +44,7 @@ function Myplan() { // Myplan 컴포넌트 정의
                     zoom: 12, // 지도 줌 레벨 설정
                 });
 
+<<<<<<< HEAD
                 // const locations = travelPlans?.flatMap((plan, dayIndex) =>
                 //     plan.TotalSpotList?.map((spot, index) => ({
                 //         lat: spot.SpotLat,
@@ -52,6 +53,30 @@ function Myplan() { // Myplan 컴포넌트 정의
                 //         day: dayIndex + 1, // 여행 일자를 1부터 시작
                 //     })),
                 //     ) || []; // travelPlans가 없거나 TotalSpotList가 없으면 빈 배열 반환
+=======
+
+                const locations = travelPlans?.flatMap((plan, dayIndex) => {
+                    // 여행지 데이터 처리
+                    const spots = plan.TotalSpotList?.map((spot, index) => ({
+                        lat: spot.SpotLat,
+                        lng: spot.SpotLng,
+                        name: spot.SpotName,
+                        day: dayIndex + 1, // 여행 일자
+                    })) || [];
+
+                    // 숙소 데이터를 각 일자 맨 마지막에 추가
+                    const hotel = {
+                        lat: plan.HotelData.Lat, // 숙소 위도
+                        lng: plan.HotelData.Lng, // 숙소 경도
+                        name:  "숙소", // 숙소 이름, 기본값 "숙소"
+                        day: dayIndex + 1, // 여행 일자
+                    };
+
+                    // 여행지 데이터를 모두 추가하고 그 뒤에 숙소 데이터 추가
+                    return [...spots, hotel];
+                }) || [];
+
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
 
                 const locations = travelPlans?.flatMap((plan, dayIndex) => {
                     // 여행지 데이터 처리
@@ -200,34 +225,35 @@ function Myplan() { // Myplan 컴포넌트 정의
 
 
     return (
-        <div className="app"> {/* 메인 앱 컨테이너 */}
-            <div id="map" className="map"></div> {/* 지도 표시 영역 */}
+        <div className="myplan_app"> {/* 메인 앱 컨테이너 */}
+            <div id="map" className="myplan_map"></div> {/* 지도 표시 영역 */}
             <div
-                className={`accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
+                className={`myplan_accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
             >
-                <div className="accordion-header"> {/* 아코디언 헤더 영역 */}
+                <div className="myplan_accordion-header"> {/* 아코디언 헤더 영역 */}
                     <button
-                        className="main-go" // 버튼 클래스 설정
+                        className="myplan_main-go" // 버튼 클래스 설정
                         onClick={() => navigate('/main')} // 일정 저장 버튼 클릭 시 모달 열기
                     >
                         메인으로 나가기
                     </button>
                     <button
                         onClick={() => setAccordionExpanded((prev) => !prev)} // 클릭 시 아코디언 상태 토글
-                        className="arrow-btn" // 버튼 클래스 설정
+                        className="myplan_arrow-btn" // 버튼 클래스 설정
                     >
                         {accordionExpanded ? "⬇️" : "⬆️"} {/* 아코디언 상태에 따른 버튼 텍스트 */}
                     </button>
                     <button
-                        className="record-go" // 버튼 클래스 설정
+                        className="myplan_record-go" // 버튼 클래스 설정
                         onClick={handleSaveClick} // 일정 저장 버튼 클릭 시 모달 열기
                     >
                         일정 저장
                     </button>
                 </div>
 
-                <div className="accordion-content"> {/* 아코디언 내용 영역 */}
+                <div className="myplan_accordion-content"> {/* 아코디언 내용 영역 */}
                     {/* 여행 정보 섹션 (아코디언 상단에 위치하도록 이동) */}
+<<<<<<< HEAD
                     <div className="travel-info">
                         {/*{travelPlans.map((plan, index) => ())}*/}
                             <div className="plan-info">
@@ -239,24 +265,49 @@ function Myplan() { // Myplan 컴포넌트 정의
                                 {/*<p>날씨: {plan.Weather}</p>*/}
                                 {/*<p>예상 여행 경비: {plan.HotelData?.expectedCost || '정보 없음'}</p>*/}
                             </div>
+=======
+                    <div className="myplan_travel-info">
+                        {/*{travelPlans.map((plan, index) => ())}*/}
+                        <div className="myplan_plan-info">
+                            <p>
+                                총 여행기간:
+                                {getFormattedDate(travelPlans[0]?.Date)} [{travelPlans[0]?.DateStartTime}] ~
+                                {getFormattedDate(travelPlans[travelPlans.length - 1]?.Date)} [{travelPlans[travelPlans.length - 1]?.DateEndTime}]
+                            </p>
+                            {/*<p>날씨: {plan.Weather}</p>*/}
+                            {/*<p>예상 여행 경비: {plan.HotelData?.expectedCost || '정보 없음'}</p>*/}
+                        </div>
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
 
                     </div>
                     {travelPlans.map((plan) => ( // data 배열을 순회하며 아코디언 아이템 생성
                         <div>
+<<<<<<< HEAD
                             <div className="accordion-item">
+=======
+                            <div className="myplan_accordion-item">
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
                                 <h2>{getFormattedDate(plan.Date)}</h2>
                                 <h4>{plan.Weather}</h4>
                             </div>
                             {/* 개별 아코디언 아이템 및 일자 표시 */}
                             {plan.TotalSpotList.map((SpotList, index) => (
+<<<<<<< HEAD
                                 <div key={index + 1} className="accordion-item" data-index={index + 1}>
                                     <div className="item-content"> {/* 아이템 내용 */}
                                         <div className="item-image-container"> {/* 이미지 컨테이너 */}
                                             <p className="viewing-time">
+=======
+                                <div key={index + 1} className="myplan_accordion-item" data-index={index + 1}>
+                                    <div className="myplan_item-content"> {/* 아이템 내용 */}
+                                        <div className="myplan_item-image-container"> {/* 이미지 컨테이너 */}
+                                            <p className="myplan_viewing-time">
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
                                                 {SpotList.SpotStartTime} ~ {SpotList.SpotEndTime}
                                             </p> {/* 방문 시간 표시 */}
                                             <img src={SpotList.SpotPhoto} alt={SpotList.SpotName} /> {/* 장소 이미지 */}
                                         </div>
+<<<<<<< HEAD
                                         <div className="item-details"> {/* 아이템 상세 정보 */}
                                             <div className="item-header"> {/* 아이템 헤더 */}
                                                 <h2>{SpotList.SpotName}</h2> {/* 장소 이름 */}
@@ -270,18 +321,42 @@ function Myplan() { // Myplan 컴포넌트 정의
                                                 <button className="route-button">가는법</button> {/* 가는법 버튼 */}
                                                 <span className="travel-time">{SpotList.DirectionTime} min</span> {/* 이동 시간 */}
                                                 <button className="place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
+=======
+                                        <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
+                                            <div className="myplan_item-header"> {/* 아이템 헤더 */}
+                                                <h2>{SpotList.SpotName}</h2> {/* 장소 이름 */}
+                                                <div className="myplan_meta-info"> {/* 추가 정보 */}
+                                                    <span className="myplan_likes">❤️ {SpotList.SpotTotaltips}</span> {/* 좋아요 수 */}
+                                                    <span className="myplan_rating">⭐ {SpotList.SpotRating}</span> {/* 평점 */}
+                                                </div>
+                                            </div>
+                                            <p className="myplan_description">{SpotList.SpotDescription}</p> {/* 장소 설명 */}
+                                            <div className="myplan_button-group"> {/* 버튼 그룹 */}
+                                                <button className="myplan_route-button">가는법</button> {/* 가는법 버튼 */}
+                                                <span className="myplan_travel-time">{SpotList.DirectionTime} min</span> {/* 이동 시간 */}
+                                                <button className="myplan_place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             ))}
 
+<<<<<<< HEAD
                             <div className="accordion-item">
                                 <div className="item-details"> {/* 아이템 상세 정보 */}
                                     <div className="item-header"> {/* 아이템 헤더 */}
                                         <h2>숙소</h2> {/* 장소 이름 */}
                                         <div className="meta-info"> {/* 추가 정보 */}
                                             <span className="likes">{plan.HotelData?.Address}</span> {/* 좋아요 수 */}
+=======
+                            <div className="myplan_accordion-item">
+                                <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
+                                    <div className="myplan_item-header"> {/* 아이템 헤더 */}
+                                        <h2>숙소</h2> {/* 장소 이름 */}
+                                        <div className="myplan_meta-info"> {/* 추가 정보 */}
+                                            <span className="myplan_likes">{plan.HotelData?.Address}</span> {/* 좋아요 수 */}
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
                                         </div>
                                     </div>
                                 </div>
@@ -294,9 +369,9 @@ function Myplan() { // Myplan 컴포넌트 정의
 
             {/* 모달 오버레이 */}
             {isModalOpen && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <button className="close-btn" onClick={handleModalClose}>X</button>
+                <div className="myplan_modal-overlay">
+                    <div className="myplan_modal">
+                        <button className="myplan_close-btn" onClick={handleModalClose}>X</button>
                         <h2>일정 저장</h2>
                         <input
                             type="text"
@@ -304,15 +379,15 @@ function Myplan() { // Myplan 컴포넌트 정의
                             onChange={handleSaveNameChange}
                             placeholder="저장할 이름을 입력하세요"
                         />
-                        <button className="save-btn" onClick={handleSaveConfirm}>저장하기</button>
+                        <button className="myplan_save-btn" onClick={handleSaveConfirm}>저장하기</button>
                     </div>
                 </div>
             )}
 
             {/* 저장 성공 메시지 */}
             {isSaveSuccess && (
-                <div className="modal-overlay">
-                    <div className="modal">
+                <div className="myplan_modal-overlay">
+                    <div className="myplan_modal">
                         <p>저장되었습니다!</p>
                     </div>
                 </div>

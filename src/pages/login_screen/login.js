@@ -4,7 +4,7 @@ import mainLogo from '../../img/logo.png';  // 이미지 경로
 
 import './login.css';
 
-function LoginScreen() {
+function LoginScreen({ onLogin }) { // onLogin prop 추가
   const [email, setEmail] = useState(''); // 이메일 입력값 상태 관리
   const [password, setPassword] = useState(''); // 비밀번호 입력값 상태 관리
   const [error, setError] = useState(''); // 에러 메시지 상태 관리
@@ -14,6 +14,7 @@ function LoginScreen() {
     // 간단한 유효성 검사 (데모용으로 사용자가 "user@example.com" 과 "password123" 인 경우 로그인 성공)
     if (email === 'user@example.com' && password === 'password123') {
       setError('');
+      onLogin(); // 로그인 성공 시 onLogin 호출하여 App.js에 로그인 상태 전달
       navigate('/main'); // 로그인 성공 시 메인 페이지로 이동
     } else {
       setError('비밀번호를 확인해주세요.'); // 로그인 실패 시 에러 메시지 표시

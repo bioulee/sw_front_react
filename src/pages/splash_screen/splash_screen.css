@@ -1,13 +1,30 @@
-.splash-screen{
-
+.splash-screen {
+    padding: 15px; /* 화면의 메인 컨테이너에 여백을 추가 */
     display: flex;
-    justify-content:center;
-    align-items: center; 
-    height: 100vh; /*높이값의 100% */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 높이값의 100% */
     text-align: center;
+    position: relative; /* 자식 요소의 위치 조정을 위해 상대 위치 설정 */
+  }
+  
+  .splash-logo_splash {
 
-}
+    width: 200px; /* 초기 크기 */
 
-.splash-logo {
-    width: 200px; /* 크기 */
-}
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    
+    transition: all 1s ease-in-out;
+    position: absolute; /* 부모 요소 기준 절대 위치 설정 */
+  }
+  
+  .splash-logo_splash.move {
+    top: 5%;
+    left: 5%;
+    width: 80px; /* 크기 축소 */
+    
+  }
+  

@@ -1,12 +1,31 @@
-.create-plan {
-  margin: 20px;
-  max-height: 80vh; /* Limit the maximum height of the container */
-  overflow-y: auto; /* Enable scrolling if content exceeds the max height */
+/* Main Create Plan Container */
+.logo-button_create{
+  width: 60px; /* 로고 버튼의 너비 설정 */
+  height: 55px; /* 로고 버튼의 높이 설정 */
+  background-size: contain; /* 배경 이미지를 요소 안에 맞춤 */
+  background-position: center; /* 배경 이미지를 중앙에 위치시킴 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+  border: none; /* 버튼의 기본 테두리 제거 */
+  background-color: #ffffff; /* 버튼의 배경색을 흰색으로 설정 */
+  background-image: url('/src/img/logo.png');
 }
 
-.create-plan h2 {
+.create-plan_on {
+  padding: 30px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  font-family: 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.create-plan h2, .create-plan h3 {
   text-align: center;
   margin-bottom: 20px;
+  color: #2c3e50;
 }
 
 .create-plan ul {
@@ -15,32 +34,224 @@
 }
 
 .create-plan li {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
 .create-plan label {
   display: block;
-  margin: 5px 0;
+  margin: 8px 0;
+  color: #34495e;
+  font-weight: bold;
 }
 
 .create-plan button {
   margin-top: 20px;
-  padding: 10px 15px;
-  background-color: #007bff;
+  padding: 12px 20px;
+  background-color: #3498db;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .create-plan button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 
 .error-message {
-  color: red;
+  color: #e74c3c;
   font-size: 0.9em;
   margin-top: 5px;
+}
+
+/* Header */
+.header0 {
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #3498db;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Input Fields and Containers */
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field, .datepicker-input, .accommodation-input, .input-field_create {
+  padding: 16px;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.input-field:focus, .datepicker-input:focus, .accommodation-input:focus, .input-field_create:focus {
+  border-color: #3498db;
+}
+
+.datepicker-input {
+  width: 90%;
+  max-width: 600px;
+  padding: 12px 16px;
+  font-size: 18px;
+  z-index: 1000;
+  margin: 0 auto;
+}
+
+/* Suggestions List */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 4px;
+  list-style: none;
+  padding: 0;
+}
+
+.suggestion-item {
+  padding: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Custom Calendar Styles */
+.custom-calendar .react-datepicker {
+  z-index: 1500;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+}
+
+.highlighted-red {
+  color: #c0392b !important;
+  font-weight: bold;
+}
+
+/* Tags and Transportation Buttons */
+.tag-button, .transportation-button_create, .hotel-booked-button {
+  padding: 10px 20px;
+  margin: 8px;
+  border: 1px solid #3498db;
+  border-radius: 20px;
+  background-color: white;
+  color: #3498db;
+  cursor: pointer;
+  /* Remove transition effects */
+  transition: none;
+}
+
+/* Button selected state - now instant */
+.tag-button.selected, .transportation-button_create.selected, .hotel-booked-button.selected {
+  background-color: #3498db;
+  color: white;
+  border-color: #2980b9;
+}
+
+/* 숙소 등급 버튼을 텍스트 아래에 위치하도록 수정 */
+.hotel_tags_create {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.hotel_tags_create button {
+  margin: 8px;
+}
+
+/* Hotel Accommodation Container */
+.accommodation-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.accommodation-container h3 {
+  margin-bottom: 15px;
+  color: #34495e;
+}
+
+/* Create Schedule Button - styling similar to other buttons */
+button.on_next, .create-plan-button {
+  background-color: #1abc9c;
+  padding: 18px 36px;
+  color: #ffffff;
+  font-size: 20px;
+  border-radius: 30px;
+  margin: 20px auto;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.on_next:hover, .create-plan-button:hover {
+  background-color: #16a085;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* General Styles */
+body {
+  background-color: #f9f9f9;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #2c3e50;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+/* Additional Styling for Focus and Interaction */
+.input-field:focus, .datepicker-input:focus, .accommodation-input:focus, .input-field_create:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+button:focus, .tag-button:focus, .transportation-button_create:focus, .hotel-booked-button:focus, button.create-plan-button:focus {
+  outline: none;
+}
+
+/* Adjusted CSS for Start and End Time Inputs */
+.time_create li div {
+  display: flex;
+  flex-direction: column;
+}
+
+.time_create input[type="time"] {
+  margin-bottom: 16px;
+  width: 150px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.time_create input[type="time"]:focus {
+  outline: none;
+  border-color: #3498db;
 }

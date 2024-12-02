@@ -10,7 +10,11 @@ function LoadingScreen() {
 
   // 전달받은 데이터
   const { state } = useLocation();
+<<<<<<< HEAD
   const { location, startDate, endDate, timeRanges, selectedTags, transportation } = state || {};
+=======
+  const { location, startDate, endDate, timeRanges, selectedTags, selectedHotelTags, transportation, accommodationAddress } = state || {};
+>>>>>>> 56612e690813e425f2568e3922e44b780d5a444c
 
   // 서버로 보낼 데이터
   const requestData = {
@@ -20,6 +24,8 @@ function LoadingScreen() {
     timeRanges: timeRanges, // 객체 배열 형태
     selectedTags: selectedTags,
     transportation: transportation,
+    selectedHotelTags: selectedHotelTags,
+    accommodationAddress: accommodationAddress,
   };
 
   // 서버로 데이터 전달 및 응답 처리

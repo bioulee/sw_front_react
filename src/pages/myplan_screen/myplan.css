@@ -4,7 +4,7 @@ body {
     overflow: hidden; /* 화면을 넘치는 내용 숨김 */
 }
 
-.app {
+.myplan_app {
     display: flex; /* 내부 요소를 플렉스 컨테이너로 설정 */
     flex-direction: column; /* 요소를 세로로 정렬 */
     height: 100vh; /* 화면 전체 높이를 차지 */
@@ -12,7 +12,7 @@ body {
     box-sizing: border-box; /* 패딩과 테두리를 요소의 크기에 포함 */
 }
 
-.header {
+.myplan_header {
     background-color: #ffffff; /* 헤더 배경색을 흰색으로 설정 */
     padding: 10px; /* 안쪽 여백 설정 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 아래쪽에 그림자 추가 */
@@ -20,18 +20,18 @@ body {
     z-index: 10; /* 헤더가 다른 요소보다 위에 표시되도록 설정 */
 }
 
-.header h1 {
+.myplan_header h1 {
     margin: 0; /* 제목의 기본 여백 제거 */
     font-size: 1.5rem; /* 제목 글꼴 크기 설정 */
 }
 
-.header p {
+.myplan_header p {
     margin: 5px 0 0; /* 위쪽 여백 5px, 나머지는 0 */
     font-size: 0.9rem; /* 부제목 글꼴 크기 설정 */
     color: #666; /* 부제목 색상을 회색으로 설정 */
 }
 
-.map {
+.myplan_map {
     position: absolute; /* 부모 요소를 기준으로 절대 위치 지정 */
     top: 0; /* 상단에 위치 */
     left: 0; /* 왼쪽에 위치 */
@@ -40,7 +40,7 @@ body {
     z-index: 1; /* 다른 요소 아래에 표시 */
 }
 
-.accordion0 {
+.myplan_accordion0 {
     position: fixed; /* 화면에 고정된 위치 지정 */
     left: 50%; /* 화면의 중앙에 위치 */
     bottom: 0; /* 화면 아래에 위치 */
@@ -53,20 +53,20 @@ body {
     overflow: hidden; /* 넘치는 내용 숨김 */
 }
 
-.accordion0.collapsed {
+.myplan_accordion0.collapsed {
     height: 30vh; /* 축소된 상태에서 높이를 화면 높이의 30%로 설정 */
 }
 
-.accordion0.expanded {
+.myplan_accordion0.expanded {
     height: 80vh; /* 확장된 상태에서 높이를 화면 높이의 80%로 설정 */
 }
 
-.accordion-header {
+.myplan_accordion-header {
     text-align: center; /* 텍스트를 중앙 정렬 */
     padding: 10px; /* 안쪽 여백 설정 */
 }
 
-.arrow-btn {
+.myplan_arrow-btn {
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
     font-size: 1.5rem; /* 버튼 글꼴 크기 설정 */
     border: none; /* 테두리 제거 */
@@ -74,13 +74,13 @@ body {
 }
 
 /*아코디언 내부의 크기*/
-.accordion-content {
+.myplan_accordion-content {
     padding: 10px; /* 안쪽 여백 설정 */
     max-height: 70vh; /* 최대 높이를 화면 높이의 70%로 제한 */
     overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 생성 */
 }
 
-.accordion-item {
+.myplan_accordion-item {
     display: flex; /* 내부 요소를 가로로 배치 */
     align-items: flex-start; /* 내부 요소를 상단 정렬 */
     margin: 10px; /* 바깥쪽 여백 설정 */
@@ -90,27 +90,27 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 그림자를 추가하여 입체감 제공 */
 }
 
-.item-content {
+.myplan_item-content {
     display: flex; /* 내부 요소를 가로로 배치 */
     flex-direction: row; /* 가로 정렬 설정 */
     gap: 15px; /* 내부 요소 간격 설정 */
 }
 
-.item-image-container {
+.myplan_item-image-container {
     position: relative; /* 자식 요소를 부모 기준으로 위치 지정 가능 */
     display: flex; /* 내부 요소를 플렉스 컨테이너로 설정 */
     flex-direction: column; /* 요소를 세로로 배치 */
     align-items: center; /* 내부 요소를 중앙 정렬 */
 }
 
-.item-image-container img {
+.myplan_item-image-container img {
     width: 80px; /* 이미지 너비 설정 */
     height: 80px; /* 이미지 높이 설정 */
     border-radius: 5px; /* 모서리를 둥글게 설정 */
     object-fit: cover; /* 이미지를 컨테이너에 맞게 조정 */
 }
 
-.viewing-time {
+.myplan_viewing-time {
     margin-bottom: 5px; /* 아래쪽 여백 설정 */
     font-size: 0.8rem; /* 텍스트 크기 설정 */
     font-weight: bold; /* 텍스트 굵게 설정 */
@@ -121,46 +121,46 @@ body {
     text-align: center; /* 텍스트를 중앙 정렬 */
 }
 
-.item-details {
+.myplan_item-details {
     flex-grow: 1; /* 남은 공간을 차지 */
     display: flex; /* 내부 요소를 플렉스 컨테이너로 설정 */
     flex-direction: column; /* 요소를 세로로 배치 */
 }
 
-.item-header {
+.myplan_item-header {
     display: flex; /* 내부 요소를 가로로 배치 */
     justify-content: space-between; /* 요소를 양쪽 끝으로 정렬 */
     align-items: center; /* 요소를 중앙 정렬 */
 }
 
-.item-header h2 {
+.myplan_item-header h2 {
     margin: 0; /* 기본 여백 제거 */
     font-size: 1.1rem; /* 텍스트 크기 설정 */
     color: #333; /* 텍스트 색상 설정 */
 }
 
-.meta-info {
+.myplan_meta-info {
     display: flex; /* 내부 요소를 가로로 배치 */
     gap: 10px; /* 요소 간격 설정 */
     font-size: 0.9rem; /* 텍스트 크기 설정 */
     color: #555; /* 텍스트 색상 설정 */
 }
 
-.description {
+.myplan_description {
     font-size: 0.9rem; /* 텍스트 크기 설정 */
     color: #666; /* 텍스트 색상 설정 */
     margin: 10px 0; /* 위아래 여백 설정 */
 }
 
-.button-group {
+.myplan_button-group {
     display: flex; /* 내부 요소를 가로로 배치 */
     align-items: center; /* 요소를 중앙 정렬 */
     gap: 10px; /* 요소 간격 설정 */
 }
 
-.route-button,
-.place-details-button,
-.expense-details-button {
+.myplan_route-button,
+.myplan_place-details-button,
+.myplan_expense-details-button {
     border: none; /* 테두리 제거 */
     padding: 8px 12px; /* 안쪽 여백 설정 */
     border-radius: 5px; /* 모서리를 둥글게 설정 */
@@ -169,15 +169,15 @@ body {
     color: white; /* 텍스트 색상 설정 */
 }
 
-.route-button {
+.myplan_route-button {
     background-color: #007bff; /* 경로 버튼 배경색을 파란색으로 설정 */
 }
 
-.place-details-button {
+.myplan_place-details-button {
     background-color: #ff5722; /* 장소 상세 버튼 배경색을 주황색으로 설정 */
 }
 
-.travel-time {
+.myplan_travel-time {
     font-size: 0.9rem; /* 텍스트 크기 설정 */
     color: #555; /* 텍스트 색상 설정 */
 }
@@ -217,7 +217,7 @@ html {
     }
 }
 
-.travel-info {
+.myplan_travel-info {
     background-color: #ffffff; /* 배경색을 흰색으로 설정 */
     padding: 15px; /* 내부 여백 추가 */
     margin-bottom: 10px; /* 아래쪽 여백 추가 */
@@ -226,7 +226,7 @@ html {
 }
 
 /* 모달 CSS */
-.modal-overlay {
+.myplan_modal-overlay {
     position: fixed; /* 화면에 고정된 위치 지정 */
     top: 0;
     left: 0;
@@ -239,7 +239,7 @@ html {
     z-index: 20; /* 지도와 아코디언보다 위에 표시 */
 }
 
-.modal {
+.myplan_modal {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -250,7 +250,7 @@ html {
     text-align: center;
 }
 
-.close-btn {
+.myplan_close-btn {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -260,11 +260,11 @@ html {
     cursor: pointer;
 }
 
-.close-btn:hover {
+.myplan_close-btn:hover {
     color: #ff0000; /* 닫기 버튼에 마우스를 올렸을 때 빨간색으로 변경 */
 }
 
-.modal p {
+.myplan_modal p {
     font-size: 1rem;
     color: #333;
     margin: 0;
