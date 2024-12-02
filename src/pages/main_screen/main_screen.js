@@ -70,97 +70,97 @@ function MainScreen({ isLoggedIn, onLogout }) {
   };
 
   return (
-    <div className="main_screen_on">
-      <div className='main_menu0'>
-        <div className="upper-box">
-          {showElements[0] && <button className="logo-button fade-in" onClick={() => navigate('/main')} />}
-          {showElements[1] && <button className="details-button fade-in" onClick={toggleAccordion}></button>}
-        </div>
-      </div>
-
-      <div className='main_menu1'>
-        {showElements[2] && (
-          <h3 className='0_agonize fade-in'>
-            여행 계획이 고민이시나요?
-          </h3>
-        )}
-
-        {showElements[3] && (
-          <h3 className='1_solution fade-in'>
-            여기 위플에 해답이 있습니다
-          </h3>
-        )}
-
-        {showElements[4] && (
-          <button
-            className="submit-button fade-in"
-            onClick={handlePlannerClick}
-          >
-            ai 통합 여행플레너 제작하기
-          </button>
-        )}
-      </div>
-
-      <div className='main_menu2'>
-        {showElements[5] && (
-          <h3 className='0_remind fade-in'>
-            이미 일정을 제작 하셨나요?
-          </h3>
-        )}
-
-        {showElements[6] && (
-          <button
-            className="submit-button  fade-in"
-            onClick={handleRecordClick}
-          >
-            내 플랜
-          </button>
-        )}
-      </div>
-
-      <div className='main_menu3'>
-        {showElements[7] && (
-          <button
-            className="ask-button fade-in"
-            onClick={() => navigate('/contact')}
-          >
-            문의하기
-          </button>
-        )}
-      </div>
-
-      <div className='main_menu4'>
-        {showElements[7] && (
-          <button
-            className="notice-button fade-in"
-            onClick={() => navigate('/contact')}
-          >
-            공지사항
-          </button>
-        )}
-      </div>
-
-      <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
-        <button className="close-btn fade-in" onClick={toggleAccordion}>X</button>
-        <div>
-          {isLoggedIn ? (
-            <button className="my-plan-accordion-button fade-in" onClick={onLogout}>
-              로그아웃
-            </button>
-          ) : (
-            <button className="login-accordion-button fade-in" onClick={handleLoginRedirect}>
-              로그인
-            </button>
-          )}
-          <div>
-            <button className="ask-accordion-button fade-in" onClick={() => navigate('/contact')}>문의하기</button>
-            <button className="notice-accordion-button fade-in" onClick={() => navigate('/contact')}>공지사항</button>
+      <div className="main_screen_on">
+        <div className='main_menu0'>
+          <div className="upper-box">
+            {showElements[0] && <button className="logo-button fade-in" onClick={() => navigate('/main')} />}
+            {showElements[1] && <button className="details-button fade-in" onClick={toggleAccordion}></button>}
           </div>
         </div>
-      </div>
 
-      <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
-    </div>
+        <div className='main_menu1'>
+          {showElements[2] && (
+              <h3 className='0_agonize fade-in'>
+                여행 계획이 고민이시나요?
+              </h3>
+          )}
+
+          {showElements[3] && (
+              <h3 className='1_solution fade-in'>
+                여기 위플에 해답이 있습니다
+              </h3>
+          )}
+
+          {showElements[4] && (
+              <button
+                  className="submit-button fade-in"
+                  onClick={handlePlannerClick}
+              >
+                ai 통합 여행플레너 제작하기
+              </button>
+          )}
+        </div>
+
+        <div className='main_menu2'>
+          {showElements[5] && (
+              <h3 className='0_remind fade-in'>
+                이미 일정을 제작 하셨나요?
+              </h3>
+          )}
+
+          {showElements[6] && (
+              <button
+                  className="submit-button  fade-in"
+                  onClick={handleRecordClick}
+              >
+                내 플랜
+              </button>
+          )}
+        </div>
+
+        <div className='main_menu3'>
+          {showElements[7] && (
+              <button
+                  className="ask-button fade-in"
+                  onClick={() => navigate('/contact')}
+              >
+                문의하기
+              </button>
+          )}
+        </div>
+
+        <div className='main_menu4'>
+          {showElements[7] && (
+              <button
+                  className="notice-button fade-in"
+                  onClick={() => navigate('/contact')}
+              >
+                공지사항
+              </button>
+          )}
+        </div>
+
+        <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
+          <button className="close-btn fade-in" onClick={toggleAccordion}>X</button>
+          <div>
+            {isLoggedIn ? (
+                <button className="my-plan-accordion-button fade-in" onClick={onLogout}>
+                  로그아웃
+                </button>
+            ) : (
+                <button className="login-accordion-button fade-in" onClick={handleLoginRedirect}>
+                  로그인
+                </button>
+            )}
+            <div>
+              <button className="ask-accordion-button fade-in" onClick={() => navigate('/contact')}>문의하기</button>
+              <button className="notice-accordion-button fade-in" onClick={() => navigate('/contact')}>공지사항</button>
+            </div>
+          </div>
+        </div>
+
+        <div className={`accordion-overlay ${isAccordionOpen ? 'visible' : ''}`} onClick={toggleAccordion}></div>
+      </div>
   );
 }
 

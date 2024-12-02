@@ -23,13 +23,13 @@ function SplashScreen() {
   }, [navigate]);
 
   return (
-    <div className={`splash-screen`}>
-      <img
-        src={mainLogo}
-        alt="Main Logo"
-        className={`splash-logo_splash ${moveLogo ? 'move' : ''}`}
-      />
-    </div>
+      <div className={`splash-screen`}>
+        <img
+            src={mainLogo}
+            alt="Main Logo"
+            className={`splash-logo_splash ${moveLogo ? 'move' : ''}`}
+        />
+      </div>
   );
 }
 

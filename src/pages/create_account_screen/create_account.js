@@ -56,13 +56,13 @@ const Signup = () => {
             <h2>회원가입</h2>
             <div className="form-group">
                 <label htmlFor="email">이메일</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    value={email} 
-                    onChange={handleEmailChange} 
-                    placeholder="example@domain.com" 
-                    required 
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    placeholder="example@domain.com"
+                    required
                 />
                 <button className="verify-button" onClick={handleEmailVerification}>
                     이메일 인증
@@ -70,35 +70,35 @@ const Signup = () => {
             </div>
             <div className="form-group">
                 <label htmlFor="verificationCode">인증 코드</label>
-                <input 
-                    type="text" 
-                    id="verificationCode" 
-                    value={enteredVerificationCode} 
-                    onChange={handleVerificationCodeChange} 
-                    placeholder="인증 코드를 입력하세요" 
-                    required 
+                <input
+                    type="text"
+                    id="verificationCode"
+                    value={enteredVerificationCode}
+                    onChange={handleVerificationCodeChange}
+                    placeholder="인증 코드를 입력하세요"
+                    required
                 />
             </div>
             <div className="form-group">
                 <label htmlFor="password">비밀번호</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    value={password} 
-                    onChange={handlePasswordChange} 
-                    placeholder="비밀번호를 입력하세요" 
-                    required 
+                <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    placeholder="비밀번호를 입력하세요"
+                    required
                 />
             </div>
             <div className="form-group">
                 <label htmlFor="confirmPassword">비밀번호 확인</label>
-                <input 
-                    type="password" 
-                    id="confirmPassword" 
-                    value={confirmPassword} 
-                    onChange={handleConfirmPasswordChange} 
-                    placeholder="비밀번호를 다시 입력하세요" 
-                    required 
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
+                    placeholder="비밀번호를 다시 입력하세요"
+                    required
                 />
             </div>
             {error && <div className="error-message">{error}</div>} {/* 에러 메시지 표시 */}
