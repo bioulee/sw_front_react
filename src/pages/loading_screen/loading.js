@@ -20,6 +20,8 @@ function LoadingScreen() {
     timeRanges: timeRanges, // 객체 배열 형태
     selectedTags: selectedTags,
     transportation: transportation,
+    selectedHotelTags: selectedHotelTags,
+    accommodationAddress: accommodationAddress,
   };
 
   // 서버로 데이터 전달 및 응답 처리
