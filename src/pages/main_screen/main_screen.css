@@ -2,6 +2,7 @@
 
 .main_screen_on {
   padding: 15px; /* 화면의 메인 컨테이너에 여백을 추가 */
+
 }
 
 .upper-box {
@@ -34,14 +35,87 @@
 }
 
 .submit-button {
+  width: 100%;
+  height: 200px;
   padding: 8px 16px; /* 버튼 안쪽 여백 설정 (상하, 좌우) */
-  font-size: 16px; /* 텍스트 크기 설정 */
-  background-color: #007bff; /* 버튼의 배경색을 파란색으로 설정 */
-  color: white; /* 텍스트 색상을 흰색으로 설정 */
+  font-size: 20px; /* 텍스트 크기 설정 */
+  color: black; /* 텍스트 색상을 흰색으로 설정 */
+
   border: none; /* 버튼 테두리 제거 */
   border-radius: 4px; /* 버튼 모서리를 둥글게 설정 */
   cursor: pointer; /* 마우스를 올렸을 때 포인터 커서 표시 */
   margin-bottom: 50px;
+
+  background-color: #aad1e3;
+  background-position: center; /* 배경 이미지를 중앙에 위치시킴 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+  opacity: 0.3; /* 투명도 설정 (0 = 완전히 투명, 1 = 완전히 불투명) */
+  background-image: url('/src/img/plain.png'); /* 아이콘 이미지 설정 */
+
+  position: relative; /* 자식 요소의 위치 기준 */
+  text-align: right; /* 텍스트를 우측으로 정렬 */
+  padding-top: 10px; /* 텍스트가 상단에 가까워지도록 패딩 조정 */
+
+}
+
+.submit-button .text {
+  position: absolute; /* 절대 위치 설정 */
+  top: 10px; /* 버튼 상단으로부터 10px 떨어짐 */
+  left: 10px; /* 버튼 우측으로부터 10px 떨어짐 */
+  color: white; /* 텍스트 색상 설정 */
+  font-size: 20px; /* 텍스트 크기 설정 */
+  z-index: 1; /* 텍스트가 배경 위에 표시되도록 설정 */
+}
+
+.submit-button .text1 {
+  position: absolute; /* 절대 위치 설정 */
+  top: 40px; /* 버튼 상단으로부터 10px 떨어짐 */
+  left: 10px; /* 버튼 우측으로부터 10px 떨어짐 */
+  color: white; /* 텍스트 색상 설정 */
+  font-size: 16px; /* 텍스트 크기 설정 */
+  z-index: 1; /* 텍스트가 배경 위에 표시되도록 설정 */
+}
+
+
+.rec-button {
+  width: 100%;
+  height: 200px;
+  padding: 8px 16px; /* 버튼 안쪽 여백 설정 (상하, 좌우) */
+  font-size: 20px; /* 텍스트 크기 설정 */
+  
+  color: rgb(0, 0, 0); /* 텍스트 색상을 흰색으로 설정 */
+  border: none; /* 버튼 테두리 제거 */
+  border-radius: 4px; /* 버튼 모서리를 둥글게 설정 */
+  cursor: pointer; /* 마우스를 올렸을 때 포인터 커서 표시 */
+  margin-bottom: 50px;
+
+  background-color: #aad1e3;
+  background-position: center; /* 배경 이미지를 중앙에 위치시킴 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+
+  background-image: url('/src/img/image2.png'); /* 아이콘 이미지 설정 */
+
+  position: relative; /* 자식 요소의 위치 기준 */
+  text-align: right; /* 텍스트를 우측으로 정렬 */
+  padding-top: 10px; /* 텍스트가 상단에 가까워지도록 패딩 조정 */
+}
+
+.rec-button  .text {
+  position: absolute; /* 절대 위치 설정 */
+  top: 10px; /* 버튼 상단으로부터 10px 떨어짐 */
+  left: 10px; /* 버튼 우측으로부터 10px 떨어짐 */
+  color: rgb(255, 255, 255); /* 텍스트 색상 설정 */
+  font-size: 20px; /* 텍스트 크기 설정 */
+  z-index: 1; /* 텍스트가 배경 위에 표시되도록 설정 */
+}
+
+.rec-button .text1 {
+  position: absolute; /* 절대 위치 설정 */
+  top: 40px; /* 버튼 상단으로부터 10px 떨어짐 */
+  left: 10px; /* 버튼 우측으로부터 10px 떨어짐 */
+  color: white; /* 텍스트 색상 설정 */
+  font-size: 16px; /* 텍스트 크기 설정 */
+  z-index: 1; /* 텍스트가 배경 위에 표시되도록 설정 */
 }
 
 /* 페이드 인 애니메이션 추가 */

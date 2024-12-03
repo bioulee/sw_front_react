@@ -96,7 +96,8 @@ function MainScreen({ isLoggedIn, onLogout }) {
                   className="submit-button fade-in"
                   onClick={handlePlannerClick}
               >
-                ai 통합 여행플레너 제작하기
+                 <span className="text">ai 통합 여행플레너 제작하기</span>
+                 <span className="text1">소수의 태그만 선택하면 여행계획을 자동 생성해드립니다</span>
               </button>
           )}
         </div>
@@ -110,32 +111,11 @@ function MainScreen({ isLoggedIn, onLogout }) {
 
           {showElements[6] && (
               <button
-                  className="submit-button  fade-in"
+                  className="rec-button  fade-in"
                   onClick={handleRecordClick}
               >
-                내 플랜
-              </button>
-          )}
-        </div>
-
-        <div className='main_menu3'>
-          {showElements[7] && (
-              <button
-                  className="ask-button fade-in"
-                  onClick={() => navigate('/contact')}
-              >
-                문의하기
-              </button>
-          )}
-        </div>
-
-        <div className='main_menu4'>
-          {showElements[7] && (
-              <button
-                  className="notice-button fade-in"
-                  onClick={() => navigate('/contact')}
-              >
-                공지사항
+                <span className="text">내 플렌</span>
+                <span className="text1">이전에 생성한 여행계획을 볼 수 있습니다</span>
               </button>
           )}
         </div>

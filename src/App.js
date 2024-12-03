@@ -6,7 +6,6 @@ import './App.css';
 const SplashScreen = lazy(() => import('./pages/splash_screen/splash_screen.js'));
 const MainScreen = lazy(() => import('./pages/main_screen/main_screen.js'));
 const CreatePlan = lazy(() => import('./pages/create_plan_screen/create_plan.js'));
-const ChoiceTag = lazy(() => import('./pages/choice_tag_screen/choice_tag.js'));
 const Loading = lazy(() => import('./pages/loading_screen/loading.js'));
 const MyPlan = lazy(() => import('./pages/myplan_screen/myplan.js'));
 const Login = lazy(() => import('./pages/login_screen/login.js'));
@@ -70,7 +69,6 @@ function App() {
                 path="/createplan" 
                 element={isLoggedIn ? <CreatePlan /> : <Login onLogin={handleLogin} />} // 로그인이 필요할 때 로그인 화면으로 리다이렉트
               />
-              <Route path="/choicetag" element={<ChoiceTag />} />
               <Route path="/loading" element={<Loading />} />
               <Route path="/myplan" element={isLoggedIn ? <MyPlan /> : <Login onLogin={handleLogin} />} />
               <Route path="/login" element={<Login onLogin={handleLogin} />} />
