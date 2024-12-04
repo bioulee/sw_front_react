@@ -66,27 +66,50 @@ function Myplan() { // Myplan 컴포넌트 정의
                     return [...spots, hotel];
                 }) || [];
 
+                const dayColors = [
+                    "#FF6B6B", // Day 1: 빨간색
+                    "#4DA8DA", // Day 2: 파란색
+                    "#51C059", // Day 3: 초록색
+                    "#9B59B6", // Day 4: 보라색
+                    "#FFC312", // Day 5: 노란색
+                    "#EE5A24", // Day 6: 주황색
+                    "#1E90FF", // Day 7: 연파랑색
+                    "#00A878", // Day 8: 청록색
+                    "#B53471", // Day 9: 마젠타
+                    "#5758BB", // Day 10: 진한 파랑색
+                ];
 
-                let dayMarkersCount = { 1: 0, 2: 0, 3: 0 }; // 일자별 마커 개수 관리
+                // 일자별 마커 개수 관리 객체 동적 생성
+                let dayMarkersCount = {};
 
-                locations.forEach((location) => { // 각 장소에 대해 마커 추가
+                // locations 데이터를 순회하며 마커 생성
+                locations.forEach((location) => {
                     if (location.day > 0) {
-                        dayMarkersCount[location.day] = (dayMarkersCount[location.day] || 0) + 1;
+                        // 해당 날짜가 처음 등장하면 초기화
+                        if (!dayMarkersCount[location.day]) {
+                            dayMarkersCount[location.day] = 0;
+                        }
+                        // 해당 날짜의 마커 개수 증가
+                        dayMarkersCount[location.day] += 1;
                     }
-                    const markerColor = location.day === 1 ? "#FF6B6B" : location.day === 2 ? "#4DA8DA" : location.day === 3 ? "#51C059" : "#9B59B6";
+
+                    // 마커 색상 및 레이블 설정
+                    const markerColor = dayColors[location.day - 1] || "#9B59B6"; // 색상 동적으로 가져오기
                     const markerLabel = location.day > 0 ? dayMarkersCount[location.day].toString() : "";
-                    const marker = new window.google.maps.Marker({ // Google Maps 마커 생성
-                        position: { lat: location.lat, lng: location.lng }, // 마커 위치 설정
-                        map: map, // 마커를 추가할 지도 객체 설정
-                        title: location.name, // 마커의 제목 설정
+
+                    // Google Maps 마커 생성
+                    const marker = new window.google.maps.Marker({
+                        position: { lat: location.lat, lng: location.lng },
+                        map: map,
+                        title: location.name,
                         label: {
-                            text: markerLabel, // 날짜마다 마커 레이블이 1부터 시작
-                            color: "white", // 레이블 색상 설정
-                            fontWeight: "bold", // 레이블 폰트 굵기 설정
+                            text: markerLabel,
+                            color: "white",
+                            fontWeight: "bold",
                         },
                         icon: {
                             path: window.google.maps.SymbolPath.CIRCLE,
-                            fillColor: markerColor, // 마커 색상 설정
+                            fillColor: markerColor,
                             fillOpacity: 1,
                             strokeWeight: 1,
                             scale: 10,
@@ -95,16 +118,20 @@ function Myplan() { // Myplan 컴포넌트 정의
                 });
 
                 // 일정 사이의 경로를 선으로 연결 (일자별로 다른 색상 적용)
-                let dayPaths = { 1: [], 2: [], 3: [] };
+                let dayPaths = {};
 
+                // 동적으로 일자별 초기화
                 locations.forEach((location) => {
                     if (location.day > 0) {
+                        if (!dayPaths[location.day]) {
+                            dayPaths[location.day] = []; // 해당 일자의 경로 배열 초기화
+                        }
                         dayPaths[location.day].push({ lat: location.lat, lng: location.lng });
                     }
                 });
 
                 Object.keys(dayPaths).forEach((day) => {
-                    const strokeColor = day === "1" ? "#FF6B6B" : day === "2" ? "#4DA8DA" : "#51C059";
+                    const strokeColor = dayColors[day - 1] || "#9B59B6";
                     const travelPath = new window.google.maps.Polyline({
                         path: dayPaths[day],
                         geodesic: true,

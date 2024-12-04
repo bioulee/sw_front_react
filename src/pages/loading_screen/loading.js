@@ -20,8 +20,8 @@ function LoadingScreen() {
     timeRanges: timeRanges, // 객체 배열 형태
     selectedTags: selectedTags,
     transportation: transportation,
-    selectedHotelTags: selectedHotelTags,
-    accommodationAddress: accommodationAddress,
+    selectedHotelTags: selectedHotelTags, //호텔 성급 데이터
+    accommodationAddress: accommodationAddress, //호텔 주소 데이터
   };
 
   // 서버로 데이터 전달 및 응답 처리
