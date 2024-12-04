@@ -67,6 +67,36 @@ const Signup = () => {
             });
     };
 
+    //서버로 회원가입을 위한 유저 이메일, 비밀번호 전송
+    const registerUser = async (email, password) => {
+        try {
+            const response = await fetch('http://localhost:8080/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',  // JSON 형식으로 데이터 전송
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('회원가입 요청 실패');
+            }
+
+            // 서버의 응답을 Boolean으로 받음
+            const data = await response.json();  // 응답은 true 또는 false 값만 있음
+            console.log(data);
+            return data;  // 서버 응답 (true 또는 false)
+
+
+        } catch (error) {
+            console.error("회원가입 오류:", error.message);
+            return false;  // 오류 시 false 반환
+        }
+    };
+
     const handleEmailVerification = () => {
         sendEmailVerification(email);
         // 이메일 인증 코드를 요청하고 전송하는 로직
@@ -101,6 +131,15 @@ const Signup = () => {
                 setError('인증 코드를 다시 확인해주세요.');
                 return;
             }
+
+            //인증 성공 후 서버에 사용자 데이터 전송
+            const signupResult = await registerUser(email, password);
+
+            if (!signupResult) {
+                setError('회원가입 중 문제가 발생했습니다.');
+                return;
+            }
+
 
             // 인증 성공
             setError('');

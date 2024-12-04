@@ -10,15 +10,53 @@ function LoginScreen({ onLogin }) { // onLogin prop 추가
   const [error, setError] = useState(''); // 에러 메시지 상태 관리
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 가져옴
 
-  const handleLogin = () => {
-    // 간단한 유효성 검사 (데모용으로 사용자가 "user@example.com" 과 "password123" 인 경우 로그인 성공)
-    if (email === 'user@example.com' && password === 'password123') {
-      setError('');
-      onLogin(); // 로그인 성공 시 onLogin 호출하여 App.js에 로그인 상태 전달
-      navigate('/main'); // 로그인 성공 시 메인 페이지로 이동
-    } else {
-      setError('비밀번호를 확인해주세요.'); // 로그인 실패 시 에러 메시지 표시
-    }
+    //서버로 로그인을 위한 유저 이메일, 비밀번호 전송
+    const logincheck = async (email, password) => {
+        try {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',  // JSON 형식으로 데이터 전송
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('로그인 요청 실패');
+            }
+
+            // 서버의 응답을 Boolean으로 받음
+            const data = await response.json();  // 응답은 true 또는 false 값만 있음
+            console.log("로그인: ",data);
+            return data;  // 서버 응답 (true 또는 false)
+
+        } catch (error) {
+            console.error("회원가입 오류:", error.message);
+            return false;  // 오류 시 false 반환
+        }
+    };
+
+
+  const handleLogin = async () => {
+      // // 간단한 유효성 검사 (데모용으로 사용자가 "user@example.com" 과 "password123" 인 경우 로그인 성공)
+      // if (email === 'user@example.com' && password === 'password123') {
+      //   setError('');
+      //   onLogin(); // 로그인 성공 시 onLogin 호출하여 App.js에 로그인 상태 전달
+      //   navigate('/main'); // 로그인 성공 시 메인 페이지로 이동
+      // }
+      const signupResult = await logincheck(email, password);
+
+      if(signupResult){
+            setError('');
+            onLogin(); // 로그인 성공 시 onLogin 호출하여 App.js에 로그인 상태 전달
+            navigate('/main'); // 로그인 성공 시 메인 페이지로 이동
+      } else
+      {
+          setError('비밀번호를 확인해주세요.'); // 로그인 실패 시 에러 메시지 표시
+      }
   };
 
   return (
