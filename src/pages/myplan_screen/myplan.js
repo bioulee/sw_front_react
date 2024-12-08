@@ -134,7 +134,40 @@ function Myplan() { // Myplan 컴포넌트 정의
         setSaveName(event.target.value);
     };
 
+    // 서버로 보낼 데이터
+    const requestData = {
+        saveName: saveName,
+        travelPlans: travelPlans,
+    };
+
+    const saveplan = () => {
+        console.log('전달할 데이터 :',requestData );
+
+        fetch('http://localhost:8080/saveTravelPlan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+            // .then((response) => {
+            //     if (!response.ok) {
+            //         throw new Error(`HTTP error! status: ${response.status}`);
+            //     }
+            //     return response.json();
+            // })
+            .then(response => response.text())
+            .then((data) => {
+                console.log('받은 데이터:', data);
+            })
+            .catch((error) => {
+                console.error('데이터 전송 실패:', error);
+            });
+    };
+
     const handleSaveConfirm = () => {
+        saveplan();
+
         // 저장 확인 로직 실행 후 저장 성공 메시지 표시
         setIsSaveSuccess(true);
         setTimeout(() => {
