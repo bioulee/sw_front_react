@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react"; // React와 필요한 훅(us
 import { useNavigate, useLocation } from 'react-router-dom';
 import './myplan.css'; // 해당 컴포넌트의 스타일 가져오기
 
-
-function Myplan() { // Myplan 컴포넌트 정의
+function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌트 정의
     const [accordionExpanded, setAccordionExpanded] = useState(false); // 아코디언 확장 상태 관리
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
     const [saveName, setSaveName] = useState(""); // 저장할 이름 상태 관리
     const [isSaveSuccess, setIsSaveSuccess] = useState(false); // 저장 성공 메시지 상태 관리
 
     const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수 가져옴
+
 
     // useLocation을 사용하여 전달받은 state 데이터 접근
     const { state } = useLocation();
@@ -161,7 +161,44 @@ function Myplan() { // Myplan 컴포넌트 정의
         setSaveName(event.target.value);
     };
 
+    // 서버로 보낼 데이터
+    const requestData = {
+        saveName: saveName,
+        travelPlans: travelPlans,
+        userEmail: userEmail,
+    };
+
+    const saveplan = () => {
+        console.log('전달할 데이터 :',requestData );
+
+        fetch('http://localhost:8080/saveTravelPlan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+            // .then((response) => {
+            //     if (!response.ok) {
+            //         throw new Error(`HTTP error! status: ${response.status}`);
+            //     }
+            //     return response.json();
+            // })
+            .then(response => response.text())
+            .then((data) => {
+                console.log('받은 데이터:', data);
+            })
+            .catch((error) => {
+                console.error('데이터 전송 실패:', error);
+            });
+    };
+
+
     const handleSaveConfirm = () => {
+
+        //플랜 저장
+        saveplan();
+
         // 저장 확인 로직 실행 후 저장 성공 메시지 표시
         setIsSaveSuccess(true);
         setTimeout(() => {
@@ -250,9 +287,9 @@ function Myplan() { // Myplan 컴포넌트 정의
                             <div className="myplan_accordion-item">
                                 <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
                                     <div className="myplan_item-header"> {/* 아이템 헤더 */}
-                                        <h2>숙소</h2> {/* 장소 이름 */}
-                                        <div className="myplan_meta-info"> {/* 추가 정보 */}
-                                            <span className="myplan_likes">{plan.HotelData?.Address}</span> {/* 좋아요 수 */}
+                                        <h2>숙소</h2>
+                                        <div className="myplan_meta-info">
+                                            <span className="myplan_likes">{plan.HotelData?.Address}</span>
                                         </div>
                                     </div>
                                 </div>
