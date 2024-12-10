@@ -221,13 +221,19 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
         }
     }
     const handleButtonClick2 = (myPlace1_a,myPlace1_b,myPlace2_a,myPlace2_b) => {
-        if(myPlace1_a == null){
-            myPlace1_a = travelPlans.HotelData.Lat;
-            myPlace1_b = travelPlans.HotelData.Lng;
+        if(myPlace1_a === undefined){
+            {travelPlans.map((plan) => (
+                myPlace1_a = plan.HotelData.Lat,
+                myPlace1_b = plan.HotelData.Lng
+            ))}
         }
-        else if(myPlace1_a == null){
-            myPlace2_a = travelPlans.HotelData.Lat;
-            myPlace2_b = travelPlans.HotelData.Lng;
+        else if(myPlace2_a === undefined){
+            // eslint-disable-next-line no-lone-blocks
+            {travelPlans.map((plan) => (
+                myPlace2_a = plan.HotelData.Lat,
+                myPlace2_b = plan.HotelData.Lng
+            ))}
+
         }
         
         const url = `https://www.google.com/maps/dir/?api=1&origin=${myPlace1_a},${myPlace1_b}&destination=${myPlace2_a},${myPlace2_b}&travelmode=transit` // 새 창에서 열 URL
