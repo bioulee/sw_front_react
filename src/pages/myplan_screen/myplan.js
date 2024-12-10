@@ -221,7 +221,15 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
         }
     }
     const handleButtonClick2 = (myPlace1_a,myPlace1_b,myPlace2_a,myPlace2_b) => {
-        console.log(myPlace2_a)
+        if(myPlace1_a == null){
+            myPlace1_a = travelPlans.HotelData.Lat;
+            myPlace1_b = travelPlans.HotelData.Lng;
+        }
+        else if(myPlace1_a == null){
+            myPlace2_a = travelPlans.HotelData.Lat;
+            myPlace2_b = travelPlans.HotelData.Lng;
+        }
+        
         const url = `https://www.google.com/maps/dir/?api=1&origin=${myPlace1_a},${myPlace1_b}&destination=${myPlace2_a},${myPlace2_b}&travelmode=transit` // 새 창에서 열 URL
         const features = "width=800,height=600,noopener,noreferrer"; // 새 창의 크기 및 옵션
         // 새 창 열기
