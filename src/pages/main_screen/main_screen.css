@@ -10,7 +10,7 @@
   justify-content: space-between; /* 양 끝으로 요소를 정렬 */
   margin-bottom: 30px; /* 아래쪽에 여백 추가 */
 }
-
+ 
 .logo-button {
   width: 60px; /* 로고 버튼의 너비 설정 */
   height: 55px; /* 로고 버튼의 높이 설정 */

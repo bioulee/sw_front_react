@@ -151,6 +151,50 @@ function Myplan() { // Myplan 컴포넌트 정의
         document.body.appendChild(script); // 스크립트를 body에 추가하여 Google Maps API 로드
     }, []); // 의존성 배열이 비어있어 마운트 시 한 번만 실행
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const handleButtonClick = (myPlace) => {
+        const url = `https://www.google.com/maps/search/?api=1&query=${myPlace}` // 새 창에서 열 URL
+        const features = "width=800,height=600,noopener,noreferrer"; // 새 창의 크기 및 옵션
+        // 새 창 열기
+        const newWindow = window.open(url, "_blank", features);
+
+        if (newWindow) {
+            // PWA 방식: 새 창이 성공적으로 열리면 포커스 설정
+            newWindow.focus();
+        } else {
+            
+        }
+    }
+    const handleButtonClick2 = (myPlace1_a,myPlace1_b,myPlace2_a,myPlace2_b) => {
+        if(myPlace1_a === undefined){
+            {travelPlans.map((plan) => (
+                myPlace1_a = plan.HotelData.Lat,
+                myPlace1_b = plan.HotelData.Lng
+            ))}
+        }
+
+        else if(myPlace2_a === undefined){
+            // eslint-disable-next-line no-lone-blocks
+            {travelPlans.map((plan) => (
+                myPlace2_a = plan.HotelData.Lat,
+                myPlace2_b = plan.HotelData.Lng
+            ))}
+
+
+        }
+
+        const url = `https://www.google.com/maps/dir/?api=1&origin=${myPlace1_a},${myPlace1_b}&destination=${myPlace2_a},${myPlace2_b}&travelmode=transit` // 새 창에서 열 URL
+        const features = "width=800,height=600,noopener,noreferrer"; // 새 창의 크기 및 옵션
+        // 새 창 열기
+        const newWindow = window.open(url, "_blank", features);
+
+        if (newWindow) {
+            // PWA 방식: 새 창이 성공적으로 열리면 포커스 설정
+            newWindow.focus();
+        } else {
+            
+        }
+    }
 
 
     return (
@@ -197,39 +241,58 @@ function Myplan() { // Myplan 컴포넌트 정의
                             </div>
 
                             {/* 개별 아코디언 아이템 및 일자 표시 */}
-                            {plan.totalSpotList.map((SpotList, index) => (
+                            {plan.TotalSpotList.map((SpotList, index) => (
+                                <div>
                                 <div key={index + 1} className="myplan_accordion-item" data-index={index + 1}>
                                     <div className="myplan_item-content"> {/* 아이템 내용 */}
                                         <div className="myplan_item-image-container"> {/* 이미지 컨테이너 */}
                                             <p className="myplan_viewing-time">
-                                                {SpotList.spotStartTime} ~ {SpotList.spotEndTime}
+                                                {SpotList.SpotStartTime} ~ {SpotList.SpotEndTime}
                                             </p> {/* 방문 시간 표시 */}
-                                            <img src={SpotList.spotPhoto} alt={SpotList.spotName}/> {/* 장소 이미지 */}
+                                            <img src={SpotList.SpotPhoto} alt={SpotList.SpotName} /> {/* 장소 이미지 */}
                                         </div>
                                         <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
                                             <div className="myplan_item-header"> {/* 아이템 헤더 */}
-                                                <h2>{SpotList.spotName}</h2> {/* 장소 이름 */}
+                                                <h2>{SpotList.SpotName}</h2> {/* 장소 이름 */}
                                                 <div className="myplan_meta-info"> {/* 추가 정보 */}
-                                                    <span
-                                                        className="myplan_likes">❤️ {SpotList.spotTotaltips}</span> {/* 좋아요 수 */}
-                                                    <span
-                                                        className="myplan_rating">⭐ {SpotList.spotRating}</span> {/* 평점 */}
+                                                    <span className="myplan_likes">❤️ {SpotList.SpotTotaltips}</span> {/* 좋아요 수 */}
+                                                    <span className="myplan_rating">⭐ {SpotList.SpotRating}</span> {/* 평점 */}
                                                 </div>
                                             </div>
-                                            <p className="myplan_description">{SpotList.spotDescription}</p> {/* 장소 설명 */}
-
-                                            <div className="myplan_button-group"> {/* 버튼 그룹 */}
-                                                <button className="myplan_route-button">가는법</button>
-                                                {/* 가는법 버튼 */}
-                                                <span
-                                                    className="myplan_travel-time">{SpotList.directionTime} min</span> {/* 이동 시간 */}
-                                                <button className="myplan_place-details-button">장소상세</button>
-                                                {/* 장소 상세 버튼 */}
+                                            <p className="myplan_description">{SpotList.SpotDescription}</p> {/* 장소 설명 */}
+                                            <div className="myplan_button-group"> {/* 버튼 그룹 */}                                        
+                                                <button 
+                                                onClick={()=>handleButtonClick(SpotList.SpotName)} 
+                                                className="myplan_place-details-button" 
+                                                >장소상세</button> {/* 장소 상세 버튼 */}
                                             </div>
+                                            
                                         </div>
+                                        
                                     </div>
+                                    
                                 </div>
+                                    <div className="ll">
+
+                                    <img className="busimg"></img>
+
+                                    <button className="myplan_route-button"
+                                    onClick={()=>handleButtonClick2(
+                                        SpotList.SpotLat,
+                                        SpotList.SpotLng,
+                                        plan.TotalSpotList[index + 1]?.SpotLat,
+                                        plan.TotalSpotList[index + 1]?.SpotLng
+                                        )} >
+                                    가는법
+                                    </button> {/* 가는법 버튼 */}
+                                    
+                                    <span className="myplan_travel-time">약 {SpotList.DirectionTime}분 소요</span> {/* 이동 시간 */}
+                                    </div>
+                                    
+                                </div>
+                                
                             ))}
+                            
                             <div className="myplan_accordion-item">
                                 <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
                                     <div className="myplan_item-header"> {/* 아이템 헤더 */}
@@ -261,102 +324,5 @@ function Myplan() { // Myplan 컴포넌트 정의
         </div>
     );
 }
-
-
-const data = [ // 아코디언에 표시할 데이터 배열
-    // 1일차
-    {
-        id: 1, // 데이터 고유 ID
-        time: "10:00 ~ 12:00", // 방문 시간
-        title: "롯데타워", // 장소 이름
-        description: "롯데타워는 서울에 위치한 123층, 555m 높이의 대한민국 최고층 빌딩으로, 쇼핑, 문화, 호텔, 전망대 등 다양한 시설을 갖춘 랜드마크입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 12500, // 좋아요 수
-        rating: 9.5, // 평점
-        travelTime: 15, // 이동 시간(분)
-    },
-    {
-        id: 2, // 데이터 고유 ID
-        time: "12:15 ~ 13:25", // 방문 시간
-        title: "만돈", // 장소 이름
-        description: "만돈은 프리미엄 흑돼지 전문점으로, 질 좋은 제주산 흑돼지와 다양한 한식 요리를 고급스럽게 제공합니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 450, // 좋아요 수
-        rating: 9.3, // 평점
-        travelTime: 20, // 이동 시간(분)
-    },
-    {
-        id: 3, // 데이터 고유 ID
-        time: "13:45 ~ 18:15", // 방문 시간
-        title: "코엑스", // 장소 이름
-        description: "코엑스는 서울 강남에 위치한 대형 전시·컨벤션 센터이자 쇼핑, 문화, 엔터테인먼트가 결합된 복합 문화 공간입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 9200, // 좋아요 수
-        rating: 9.4, // 평점
-        travelTime: 5, // 이동 시간(분)
-    },
-    // 2일차
-    {
-        id: 4, // 데이터 고유 ID
-        time: "09:00 ~ 11:00", // 방문 시간
-        title: "경복궁", // 장소 이름
-        description: "경복궁은 서울에 위치한 조선 왕조의 법궁으로, 전통적인 궁궐 건축과 한국 역사의 중요한 현장입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 15000, // 좋아요 수
-        rating: 9.7, // 평점
-        travelTime: 10, // 이동 시간(분)
-    },
-    {
-        id: 5, // 데이터 고유 ID
-        time: "11:15 ~ 13:00", // 방문 시간
-        title: "북촌한옥마을", // 장소 이름
-        description: "북촌한옥마을은 서울에 위치한 전통 한옥들이 모여 있는 마을로, 한국의 전통 생활문화를 경험할 수 있는 곳입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 8000, // 좋아요 수
-        rating: 9.6, // 평점
-        travelTime: 15, // 이동 시간(분)
-    },
-    {
-        id: 6, // 데이터 고유 ID
-        time: "13:15 ~ 15:00", // 방문 시간
-        title: "인사동", // 장소 이름
-        description: "인사동은 서울에 위치한 전통 문화와 현대 예술이 어우러진 거리로, 다양한 갤러리와 공예품 가게가 있습니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 7300, // 좋아요 수
-        rating: 9.2, // 평점
-        travelTime: 10, // 이동 시간(분)
-    },
-    // 3일차
-    {
-        id: 7, // 데이터 고유 ID
-        time: "10:00 ~ 12:00", // 방문 시간
-        title: "남산타워", // 장소 이름
-        description: "남산타워는 서울의 대표적인 관광명소로, 서울 전경을 한눈에 볼 수 있는 전망대입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 14000, // 좋아요 수
-        rating: 9.8, // 평점
-        travelTime: 15, // 이동 시간(분)
-    },
-    {
-        id: 8, // 데이터 고유 ID
-        time: "12:15 ~ 13:30", // 방문 시간
-        title: "명동", // 장소 이름
-        description: "명동은 서울의 쇼핑과 맛집이 모여 있는 번화가로, 다양한 먹거리와 쇼핑을 즐길 수 있는 장소입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 11000, // 좋아요 수
-        rating: 9.5, // 평점
-        travelTime: 20, // 이동 시간(분)
-    },
-    {
-        id: 9, // 데이터 고유 ID
-        time: "13:45 ~ 15:00", // 방문 시간
-        title: "청계천", // 장소 이름
-        description: "청계천은 서울 도심을 가로지르는 복원된 하천으로, 도심 속 자연을 느낄 수 있는 산책로입니다.", // 장소 설명
-        image: "https://via.placeholder.com/150", // 이미지 URL
-        likes: 9000, // 좋아요 수
-        rating: 9.3, // 평점
-        travelTime: 10, // 이동 시간(분)
-    },
-];
 
 export default Myplan; // Myplan 컴포넌트를 다른 파일에서 사용할 수 있도록 내보내기
