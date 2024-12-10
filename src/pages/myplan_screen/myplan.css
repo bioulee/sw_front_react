@@ -40,6 +40,7 @@ body {
     z-index: 1; /* 다른 요소 아래에 표시 */
 }
 
+
 .myplan_accordion0 {
     position: fixed; /* 화면에 고정된 위치 지정 */
     left: 50%; /* 화면의 중앙에 위치 */
@@ -62,8 +63,11 @@ body {
 }
 
 .myplan_accordion-header {
+    display: flex; /* 내부 요소를 플렉스 컨테이너로 설정 */
+    justify-content: center;
     text-align: center; /* 텍스트를 중앙 정렬 */
     padding: 10px; /* 안쪽 여백 설정 */
+    gap: 50px;
 }
 
 .myplan_arrow-btn {
@@ -158,6 +162,24 @@ body {
     gap: 10px; /* 요소 간격 설정 */
 }
 
+.ll{
+    display: flex; 
+    margin: 15px; /* 바깥쪽 여백 설정 */
+    gap: 10px; /* 요소 간격 설정 */
+}
+
+.busimg{
+    left: 10px; /* 화면의 중앙에 위치 */
+    width: 30px; /* 로고 버튼의 너비 설정 */
+    height: 30px; /* 로고 버튼의 높이 설정 */
+    background-size: contain; /* 배경 이미지를 요소 안에 맞춤 */
+    background-position: center; /* 배경 이미지를 중앙에 위치시킴 */
+    background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+    border: none; /* 버튼의 기본 테두리 제거 */
+    background-color: #f0f0f0; /* 버튼의 배경색을 흰색으로 설정 */
+    background-image: url('/src/img/busicon.png'); /* 로고 이미지 설정 */
+}
+
 .myplan_route-button,
 .myplan_place-details-button,
 .myplan_expense-details-button {
@@ -178,7 +200,9 @@ body {
 }
 
 .myplan_travel-time {
-    font-size: 0.9rem; /* 텍스트 크기 설정 */
+    display: flex; 
+    
+    font-size: 1.0rem; /* 텍스트 크기 설정 */
     color: #555; /* 텍스트 색상 설정 */
 }
 

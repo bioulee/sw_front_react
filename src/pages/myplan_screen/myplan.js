@@ -170,6 +170,34 @@ function Myplan() { // Myplan 컴포넌트 정의
         }, 1000); // 1초 동안 메시지 표시 후 모달 닫기
     };
 
+    const handleButtonClick = (myPlace) => {
+        const url = `https://www.google.com/maps/search/?api=1&query=${myPlace}` // 새 창에서 열 URL
+        const features = "width=800,height=600,noopener,noreferrer"; // 새 창의 크기 및 옵션
+        // 새 창 열기
+        const newWindow = window.open(url, "_blank", features);
+
+        if (newWindow) {
+            // PWA 방식: 새 창이 성공적으로 열리면 포커스 설정
+            newWindow.focus();
+        } else {
+            
+        }
+    }
+    const handleButtonClick2 = (myPlace1_a,myPlace1_b,myPlace2_a,myPlace2_b) => {
+        console.log(myPlace2_a)
+        const url = `https://www.google.com/maps/dir/?api=1&origin=${myPlace1_a},${myPlace1_b}&destination=${myPlace2_a},${myPlace2_b}&travelmode=transit` // 새 창에서 열 URL
+        const features = "width=800,height=600,noopener,noreferrer"; // 새 창의 크기 및 옵션
+        // 새 창 열기
+        const newWindow = window.open(url, "_blank", features);
+
+        if (newWindow) {
+            // PWA 방식: 새 창이 성공적으로 열리면 포커스 설정
+            newWindow.focus();
+        } else {
+            
+        }
+    }
+
     return (
         <div className="myplan_app"> {/* 메인 앱 컨테이너 */}
             <div id="map" className="myplan_map"></div> {/* 지도 표시 영역 */}
@@ -209,6 +237,9 @@ function Myplan() { // Myplan 컴포넌트 정의
                             </p>
                             {/*<p>날씨: {plan.Weather}</p>*/}
                             {/*<p>예상 여행 경비: {plan.HotelData?.expectedCost || '정보 없음'}</p>*/}
+                            <p>
+                                예상 여행경비: 약 800,000원
+                            </p>
                         </div>
 
                     </div>
@@ -220,6 +251,7 @@ function Myplan() { // Myplan 컴포넌트 정의
                             </div>
                             {/* 개별 아코디언 아이템 및 일자 표시 */}
                             {plan.TotalSpotList.map((SpotList, index) => (
+                                <div>
                                 <div key={index + 1} className="myplan_accordion-item" data-index={index + 1}>
                                     <div className="myplan_item-content"> {/* 아이템 내용 */}
                                         <div className="myplan_item-image-container"> {/* 이미지 컨테이너 */}
@@ -237,14 +269,37 @@ function Myplan() { // Myplan 컴포넌트 정의
                                                 </div>
                                             </div>
                                             <p className="myplan_description">{SpotList.SpotDescription}</p> {/* 장소 설명 */}
-                                            <div className="myplan_button-group"> {/* 버튼 그룹 */}
-                                                <button className="myplan_route-button">가는법</button> {/* 가는법 버튼 */}
-                                                <span className="myplan_travel-time">{SpotList.DirectionTime} min</span> {/* 이동 시간 */}
-                                                <button className="myplan_place-details-button">장소상세</button> {/* 장소 상세 버튼 */}
+                                            <div className="myplan_button-group"> {/* 버튼 그룹 */}                                        
+                                                <button 
+                                                onClick={()=>handleButtonClick(SpotList.SpotName)} 
+                                                className="myplan_place-details-button" 
+                                                >장소상세</button> {/* 장소 상세 버튼 */}
                                             </div>
+                                            
                                         </div>
+                                        
                                     </div>
+                                    
                                 </div>
+                                    <div className="ll">
+
+                                    <img className="busimg"></img>
+
+                                    <button className="myplan_route-button"
+                                    onClick={()=>handleButtonClick2(
+                                        SpotList.SpotLat,
+                                        SpotList.SpotLng,
+                                        plan.TotalSpotList[index + 1]?.SpotLat,
+                                        plan.TotalSpotList[index + 1]?.SpotLng
+                                        )} >
+                                    가는법
+                                    </button> {/* 가는법 버튼 */}
+                                    
+                                    <span className="myplan_travel-time">약 {SpotList.DirectionTime}분 소요</span> {/* 이동 시간 */}
+                                    </div>
+                                    
+                                </div>
+                                
                             ))}
 
                             <div className="myplan_accordion-item">

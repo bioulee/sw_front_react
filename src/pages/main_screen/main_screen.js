@@ -1,26 +1,8 @@
 // src/pages/main_screen/main_screen.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import "./main_screen.css";
-
-const koreanToRomanized = (korean) => {
-  const romanizationMap = {
-    서울: 'seoul',
-    세종: 'sejong',
-    부산: 'busan',
-    제주: 'jeju',
-    강릉: 'gangneung',
-    대구: 'daegu',
-    인천: 'incheon',
-    속초: 'sokcho',
-    전주: 'jeonju',
-    성남: 'seongnam'
-  };
-
-  return romanizationMap[korean] || korean;
-};
 
 function MainScreen({ isLoggedIn, onLogout }) {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -122,7 +104,7 @@ function MainScreen({ isLoggedIn, onLogout }) {
 
         <div className={`accordion ${isAccordionOpen ? 'open' : ''}`}>
           <button className="close-btn fade-in" onClick={toggleAccordion}>X</button>
-          <div>
+          <div className="a">
             {isLoggedIn ? (
                 <button className="my-plan-accordion-button fade-in" onClick={onLogout}>
                   로그아웃
@@ -132,9 +114,9 @@ function MainScreen({ isLoggedIn, onLogout }) {
                   로그인
                 </button>
             )}
-            <div>
+            <div className="b">
               <button className="ask-accordion-button fade-in" onClick={() => navigate('/contact')}>문의하기</button>
-              <button className="notice-accordion-button fade-in" onClick={() => navigate('/contact')}>공지사항</button>
+              <button className="ask-accordion-button fade-in" onClick={() => navigate('/contact')}>공지사항</button>
             </div>
           </div>
         </div>
