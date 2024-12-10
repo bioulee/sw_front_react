@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mainLogo from '../../img/logo.png';  // 이미지 경로
-
 import './login.css';
 
 function LoginScreen({ onLogin }) { // onLogin prop 추가
@@ -51,7 +50,7 @@ function LoginScreen({ onLogin }) { // onLogin prop 추가
 
       if(signupResult){
             setError('');
-            onLogin(); // 로그인 성공 시 onLogin 호출하여 App.js에 로그인 상태 전달
+            onLogin(email); // 로그인 성공 시 onLogin 호출하여 App.js에 로그인 상태 전달
             navigate('/main'); // 로그인 성공 시 메인 페이지로 이동
       } else
       {
