@@ -241,28 +241,28 @@ function Myplan() { // Myplan 컴포넌트 정의
                             </div>
 
                             {/* 개별 아코디언 아이템 및 일자 표시 */}
-                            {plan.TotalSpotList.map((SpotList, index) => (
+                            {plan.totalSpotList.map((spotList, index) => (
                                 <div>
                                 <div key={index + 1} className="myplan_accordion-item" data-index={index + 1}>
                                     <div className="myplan_item-content"> {/* 아이템 내용 */}
                                         <div className="myplan_item-image-container"> {/* 이미지 컨테이너 */}
                                             <p className="myplan_viewing-time">
-                                                {SpotList.SpotStartTime} ~ {SpotList.SpotEndTime}
+                                                {spotList.spotStartTime} ~ {spotList.spotEndTime}
                                             </p> {/* 방문 시간 표시 */}
-                                            <img src={SpotList.SpotPhoto} alt={SpotList.SpotName} /> {/* 장소 이미지 */}
+                                            <img src={spotList.spotPhoto} alt={spotList.spotName} /> {/* 장소 이미지 */}
                                         </div>
                                         <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
                                             <div className="myplan_item-header"> {/* 아이템 헤더 */}
-                                                <h2>{SpotList.SpotName}</h2> {/* 장소 이름 */}
+                                                <h2>{spotList.spotName}</h2> {/* 장소 이름 */}
                                                 <div className="myplan_meta-info"> {/* 추가 정보 */}
-                                                    <span className="myplan_likes">❤️ {SpotList.SpotTotaltips}</span> {/* 좋아요 수 */}
-                                                    <span className="myplan_rating">⭐ {SpotList.SpotRating}</span> {/* 평점 */}
+                                                    <span className="myplan_likes">❤️ {spotList.spotTotaltips}</span> {/* 좋아요 수 */}
+                                                    <span className="myplan_rating">⭐ {spotList.spotRating}</span> {/* 평점 */}
                                                 </div>
                                             </div>
-                                            <p className="myplan_description">{SpotList.SpotDescription}</p> {/* 장소 설명 */}
+                                            <p className="myplan_description">{spotList.spotDescription}</p> {/* 장소 설명 */}
                                             <div className="myplan_button-group"> {/* 버튼 그룹 */}                                        
                                                 <button 
-                                                onClick={()=>handleButtonClick(SpotList.SpotName)} 
+                                                onClick={()=>handleButtonClick(spotList.spotName)} 
                                                 className="myplan_place-details-button" 
                                                 >장소상세</button> {/* 장소 상세 버튼 */}
                                             </div>
@@ -278,15 +278,15 @@ function Myplan() { // Myplan 컴포넌트 정의
 
                                     <button className="myplan_route-button"
                                     onClick={()=>handleButtonClick2(
-                                        SpotList.SpotLat,
-                                        SpotList.SpotLng,
-                                        plan.TotalSpotList[index + 1]?.SpotLat,
-                                        plan.TotalSpotList[index + 1]?.SpotLng
+                                        spotList.SpotLat,
+                                        spotList.SpotLng,
+                                        plan.totalSpotList[index + 1]?.spotLat,
+                                        plan.totalSpotList[index + 1]?.spotLng
                                         )} >
                                     가는법
                                     </button> {/* 가는법 버튼 */}
                                     
-                                    <span className="myplan_travel-time">약 {SpotList.DirectionTime}분 소요</span> {/* 이동 시간 */}
+                                    <span className="myplan_travel-time">약 {spotList.directionTime}분 소요</span> {/* 이동 시간 */}
                                     </div>
                                     
                                 </div>
