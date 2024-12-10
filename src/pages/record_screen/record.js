@@ -168,16 +168,16 @@ function Myplan() { // Myplan 컴포넌트 정의
     const handleButtonClick2 = (myPlace1_a,myPlace1_b,myPlace2_a,myPlace2_b) => {
         if(myPlace1_a === undefined){
             {travelPlans.map((plan) => (
-                myPlace1_a = plan.HotelData.Lat,
-                myPlace1_b = plan.HotelData.Lng
+                myPlace1_a = plan.hotelData.lat,
+                myPlace1_b = plan.hotelData.lng
             ))}
         }
 
         else if(myPlace2_a === undefined){
             // eslint-disable-next-line no-lone-blocks
             {travelPlans.map((plan) => (
-                myPlace2_a = plan.HotelData.Lat,
-                myPlace2_b = plan.HotelData.Lng
+                myPlace2_a = plan.hotelData.lat,
+                myPlace2_b = plan.hotelData.lng
             ))}
 
 
@@ -205,6 +205,12 @@ function Myplan() { // Myplan 컴포넌트 정의
                 className={`myplan_accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
             >
                 <div className="myplan_accordion-header"> {/* 아코디언 헤더 영역 */}
+                <button
+                        className="myplan_main-go" // 버튼 클래스 설정
+                        onClick={() => navigate('/main')} // 일정 저장 버튼 클릭 시 모달 열기
+                    >
+                        메인으로 나가기
+                    </button>
                     <button
                         onClick={() => setAccordionExpanded((prev) => !prev)} // 클릭 시 아코디언 상태 토글
                         className="myplan_arrow-btn" // 버튼 클래스 설정
@@ -278,8 +284,8 @@ function Myplan() { // Myplan 컴포넌트 정의
 
                                     <button className="myplan_route-button"
                                     onClick={()=>handleButtonClick2(
-                                        spotList.SpotLat,
-                                        spotList.SpotLng,
+                                        spotList.spotLat,
+                                        spotList.spotLng,
                                         plan.totalSpotList[index + 1]?.spotLat,
                                         plan.totalSpotList[index + 1]?.spotLng
                                         )} >
@@ -304,17 +310,7 @@ function Myplan() { // Myplan 컴포넌트 정의
                                     </div>
                                 </div>
                             </div>
-                            <div className="myplan_accordion-item">
-                                <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
-                                    <div className="myplan_item-header"> {/* 아이템 헤더 */}
-                                        <h2>숙소</h2>
-                                        <div className="myplan_meta-info">
-                                            <span
-                                                className="myplan_likes">{plan.hotelData?.address}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     ))}
                 </div>
