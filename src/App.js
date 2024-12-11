@@ -19,7 +19,7 @@ function NavigationButtons() {
   const location = useLocation();
 
   // 특정 경로에서는 뒤로가기 버튼을 숨김
-  if (location.pathname === '/loading' || location.pathname === '/myplan' || location.pathname === '/' || location.pathname === '/main'|| location.pathname === '/record') {
+  if (location.pathname === '/createplan' || location.pathname === '/loading' || location.pathname === '/myplan' || location.pathname === '/' || location.pathname === '/main'|| location.pathname === '/record') {
     return null;
   }
 

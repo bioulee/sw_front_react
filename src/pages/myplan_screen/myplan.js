@@ -39,8 +39,12 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
         };
         window.initMap = () => { // Google Maps 초기화 함수 정의
             try {
+                const first = travelPlans?.[0].TotalSpotList?.[0];
+                const firlat= first.SpotLat;
+                const firlng = first.SpotLng;
                 const map = new window.google.maps.Map(document.getElementById("map"), { // "map" ID를 가진 요소에 맵 렌더링
-                    center: { lat: 37.5665, lng: 126.9780 }, // 지도 중심 좌표 설정 (서울)
+
+                    center: { lat: firlat, lng: firlng }, // 지도 중심 좌표 설정 (서울)
                     zoom: 12, // 지도 줌 레벨 설정
                 });
 

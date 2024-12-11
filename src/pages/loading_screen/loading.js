@@ -55,23 +55,34 @@ function LoadingScreen() {
   useEffect(() => {
     // 여행 계획 생성 요청
     travelplanmaking();
-
-    // 진행률 업데이트
-    const interval = setInterval(() => {
+  
+    let intervalId;
+  
+    const updateProgress = () => {
       setProgress((prevProgress) => {
-        if (prevProgress < 100) {
+        if (prevProgress < 99) {
           return prevProgress + 1; // 진행률 증가
         } else {
-          clearInterval(interval); // 100% 도달 시 타이머 종료
-          return 100;
+          clearInterval(intervalId); // 100% 도달 시 타이머 종료
+          return 99;
         }
       });
-    }, 100); // 100ms 간격으로 진행률 증가
-
+  
+      // 다음 호출 간격을 랜덤하게 설정
+      const randomInterval = Math.floor(Math.random() * 700) + 300; // 300ms ~ 1000ms
+      clearInterval(intervalId); // 기존 interval 정리
+      intervalId = setInterval(updateProgress, randomInterval); // 새로운 간격으로 업데이트
+    };
+  
+    // 초기 interval 설정
+    const initialInterval = Math.floor(Math.random() * 700) + 300; // 300ms ~ 1000ms
+    intervalId = setInterval(updateProgress, initialInterval);
+  
     return () => {
-      clearInterval(interval); // 컴포넌트 언마운트 시 진행률 업데이트 정리
+      clearInterval(intervalId); // 컴포넌트 언마운트 시 진행률 업데이트 정리
     };
   }, []);
+  
 
   useEffect(() => {
     // travelPlans가 업데이트되면 화면 이동

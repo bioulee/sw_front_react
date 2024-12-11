@@ -7,10 +7,20 @@ import './create_plan.css';
 const koreanToRomanized = (korean) => {
   const romanizationMap = {
     서울: 'seoul',
-    세종: 'sejong',
     부산: 'busan',
     제주: 'jeju',
-    강릉: 'gangneung',
+    뉴욕: 'newyork',
+    도쿄: 'tokyo',
+    상하이: 'shanghai',
+    방콕: 'bangkok',
+    마닐라: 'manila',
+    하노이: 'hanoi',
+    파리: 'paris',
+    로마: 'rome',
+    프라하: 'prague',
+    런던: 'london',
+    홍콩: 'hongkong',
+    마카오: 'macau'
   };
   return romanizationMap[korean] || korean;
 };
@@ -28,7 +38,8 @@ function CreatePlan() {
   const [hotelBooked, setHotelBooked] = useState(null);
 
   const [suggestions, setSuggestions] = useState([]);
-  const destinations = ['서울', '부산', '제주', '강릉', '대구', '인천', '속촌', '전주', '성남'];
+  const destinations = ['서울', '부산', '제주','뉴욕','도쿄','상하이','방콕','마닐라','하노이','파리','로마','프라하','런던','홍콩','마카오'];
+
   const tagOptions = ['문화유산', '쇼핑', '전통시장', '휴양지', '랜드마크', '자연', '공원', '카지노', '스파', '예술', '테마파크'];
   const hotelTagOptions = ['1성', '2성', '3성', '4성', '5성'];
 
