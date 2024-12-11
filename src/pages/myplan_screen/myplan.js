@@ -331,6 +331,7 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
                                                 onClick={()=>handleButtonClick(SpotList.SpotName)} 
                                                 className="myplan_place-details-button" 
                                                 >장소상세</button> {/* 장소 상세 버튼 */}
+                                                <p>예상 경비</p>
                                             </div>
                                             
                                         </div>

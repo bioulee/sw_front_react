@@ -272,7 +272,7 @@ function Myplan() { // Myplan 컴포넌트 정의
                                                 className="myplan_place-details-button" 
                                                 >장소상세</button> {/* 장소 상세 버튼 */}
                                             </div>
-                                            
+                                            <p>예상 경비</p>
                                         </div>
                                         
                                     </div>
