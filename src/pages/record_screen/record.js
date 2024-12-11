@@ -266,13 +266,16 @@ function Myplan() { // Myplan 컴포넌트 정의
                                                 </div>
                                             </div>
                                             <p className="myplan_description">{spotList.spotDescription}</p> {/* 장소 설명 */}
+
                                             <div className="myplan_button-group"> {/* 버튼 그룹 */}                                        
                                                 <button 
                                                 onClick={()=>handleButtonClick(spotList.spotName)} 
                                                 className="myplan_place-details-button" 
                                                 >장소상세</button> {/* 장소 상세 버튼 */}
+
+                                                <p>예상 비용: </p>
                                             </div>
-                                            <p>예상 경비</p>
+                                            
                                         </div>
                                         
                                     </div>
