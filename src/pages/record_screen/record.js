@@ -15,7 +15,10 @@ function Myplan() { // Myplan 컴포넌트 정의
 
     // useLocation을 사용하여 전달받은 state 데이터 접근
     const {state} = useLocation();
-    const travelPlans = state?.data; // 전달받은 travelPlans 데이터
+    // 전달된 데이터
+    const travelPlans = state?.data;
+    const email = state?.email;
+    const id = state?.id;
     console.log("travelPlans : ",travelPlans);
 
 
@@ -197,6 +200,28 @@ function Myplan() { // Myplan 컴포넌트 정의
         }
     }
 
+    const deletemyplan = (id) => {
+        const requestData = { email: email, id: id };
+
+        fetch('http://localhost:8080/deletePlan', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),  // 요청 데이터 전송
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("서버 응답 오류");
+                }
+            })
+            .catch(error => {
+                console.error("데이터 삭제 중 오류 발생:", error);  // 오류 처리
+            });
+
+        navigate('/myrecord');  // 삭제 성공 시 페이지 이동
+        window.location.reload();
+    };
 
     return (
         <div className="myplan_app"> {/* 메인 앱 컨테이너 */}
@@ -206,11 +231,11 @@ function Myplan() { // Myplan 컴포넌트 정의
                 className={`myplan_accordion0 ${accordionExpanded ? "expanded" : "collapsed"}`} // 아코디언 상태에 따라 클래스 적용
             >
                 <div className="myplan_accordion-header"> {/* 아코디언 헤더 영역 */}
-                <button
+                    <button
                         className="myplan_main-go" // 버튼 클래스 설정
-                        onClick={() => navigate('/main')} // 일정 저장 버튼 클릭 시 모달 열기
+                        onClick={() => navigate(-1)} // 일정 저장 버튼 클릭 시 모달 열기
                     >
-                        메인으로 나가기
+                        내 플랜으로
                     </button>
                     <button
                         onClick={() => setAccordionExpanded((prev) => !prev)} // 클릭 시 아코디언 상태 토글
@@ -218,12 +243,20 @@ function Myplan() { // Myplan 컴포넌트 정의
                     >
                         {accordionExpanded ? "⬇️" : "⬆️"} {/* 아코디언 상태에 따른 버튼 텍스트 */}
                     </button>
+
+
+                    <button
+                        className="myplan_main-go" // 버튼 클래스 설정
+                        onClick={() => deletemyplan(id)} //삭제
+                    >
+                        삭제
+                    </button>
                 </div>
 
                 <div className="myplan_accordion-content"> {/* 아코디언 내용 영역 */}
                     {/* 여행 정보 섹션 (아코디언 상단에 위치하도록 이동) */}
                     <div className="myplan_travel-info">
-                        {/*{travelPlans.map((plan, index) => ())}*/}
+                    {/*{travelPlans.map((plan, index) => ())}*/}
                         <div className="myplan_plan-info">
                             <p>
                                 총 여행기간:

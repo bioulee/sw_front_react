@@ -71,7 +71,7 @@ function App() {
                   <Route path="/" element={<SplashScreen />} />
                   <Route
                     path="/main"
-                    element={<MainScreen isLoggedIn={isLoggedIn} onLogout={handleLogout} />} // 로그인 상태와 로그아웃 함수를 MainScreen에 전달
+                    element={<MainScreen isLoggedIn={isLoggedIn}  onLogout={handleLogout} userEmail={userEmail} />} // 로그인 상태와 로그아웃 함수를 MainScreen에 전달
                   />
                   <Route
                     path="/createplan"

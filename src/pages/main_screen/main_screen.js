@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import "./main_screen.css";
 
-function MainScreen({ isLoggedIn, onLogout }) {
+function MainScreen({ isLoggedIn, onLogout, userEmail }) {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [showElements, setShowElements] = useState(Array(8).fill(false));
   const navigate = useNavigate();
+  const [email, setEmail] = useState(userEmail);   // 로그인한 이메일 상태 관리
 
   useEffect(() => {
     const timeouts = [];
@@ -50,6 +51,65 @@ function MainScreen({ isLoggedIn, onLogout }) {
       handleLoginRedirect();
     }
   };
+  
+  //회원 탈퇴
+  const onDeleteAccount = () => {
+    // 경고창을 띄워서 사용자 확인 받기
+    const confirmDelete = window.confirm("정말로 회원탈퇴를 진행하시겠습니까?");
+    const requestData = { email: email };
+
+    if (confirmDelete) {
+      console.log("회원탈퇴 진행 중...");
+      console.log("email:", email);  // 이메일 값 확인
+
+      // DeleteAccount 함수에서 Promise를 반환하고 then을 사용하여 후속 작업 처리
+      DeleteAccount(requestData).then(response => {
+        if (response === true) {
+          // 서버에서 true를 받았을 때만 로그아웃 및 이메일 null 설정
+          onLogout();   // 로그아웃 처리
+          setEmail(null); // 이메일을 null로 설정
+          console.log("회원탈퇴가 완료되었습니다.");
+        } else {
+          // 서버에서 실패한 경우 처리
+          console.error("회원탈퇴에 실패했습니다.");
+        }
+      }).catch(error => {
+        console.error("회원탈퇴 중 오류 발생:", error);
+      });
+    } else {
+      // "아니요" 버튼을 눌렀을 때 취소 처리
+      console.log("회원탈퇴가 취소되었습니다.");
+    }
+  };
+
+  const DeleteAccount = (requestData) => {
+    return fetch('http://localhost:8080/unregister', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),  // 이메일을 JSON 형식으로 요청 본문에 포함
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("서버 응답 오류");
+          }
+          return response.json();  // 응답을 JSON으로 파싱
+        })
+        .then(data => {
+          if (data === true) {
+            return true;
+          } else {
+            throw new Error("회원탈퇴 실패");
+          }
+        })
+        .catch(error => {
+          console.error("데이터 삭제 중 오류 발생:", error);
+          throw error;  // 오류를 다시 던져서 외부에서 처리
+        });
+  };
+
+
 
   return (
       <div className="main_screen_on">
@@ -96,7 +156,7 @@ function MainScreen({ isLoggedIn, onLogout }) {
                   className="rec-button  fade-in"
                   onClick={handleRecordClick}
               >
-                <span className="text">내 플렌</span>
+                <span className="text">내 플랜</span>
                 <span className="text1">이전에 생성한 여행계획을 볼 수 있습니다</span>
               </button>
           )}
@@ -106,9 +166,18 @@ function MainScreen({ isLoggedIn, onLogout }) {
           <button className="close-btn fade-in" onClick={toggleAccordion}>X</button>
           <div className="a">
             {isLoggedIn ? (
-                <button className="my-plan-accordion-button fade-in" onClick={onLogout}>
-                  로그아웃
-                </button>
+                // <button className="my-plan-accordion-button fade-in" onClick={onLogout}>
+                //   로그아웃
+                // </button>
+                <>
+                  <button className="my-plan-accordion-button fade-in" onClick={onLogout}>
+                    로그아웃
+                  </button>
+                  <button className="my-plan-accordion-button fade-in" onClick={onDeleteAccount}>
+                    회원탈퇴
+                  </button>
+                </>
+
             ) : (
                 <button className="login-accordion-button fade-in" onClick={handleLoginRedirect}>
                   로그인
