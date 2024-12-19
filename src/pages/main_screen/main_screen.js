@@ -79,7 +79,7 @@ function MainScreen({ isLoggedIn, onLogout }) {
                   onClick={handlePlannerClick}
               >
                  <span className="text">ai 통합 여행플레너 제작하기</span>
-                 <span className="text1">소수의 태그만 선택하면 여행계획을 자동 생성해드립니다</span>
+                 <span className="text1">여행계획을 자동 생성해드립니다</span>
               </button>
           )}
         </div>

@@ -185,6 +185,7 @@ function Myplan() { // Myplan 컴포넌트 정의
 
         const url = `https://www.google.com/maps/dir/?api=1&origin=${myPlace1_a},${myPlace1_b}&destination=${myPlace2_a},${myPlace2_b}&travelmode=transit` // 새 창에서 열 URL
         const features = "width=800,height=600,noopener,noreferrer"; // 새 창의 크기 및 옵션
+
         // 새 창 열기
         const newWindow = window.open(url, "_blank", features);
 
@@ -192,7 +193,7 @@ function Myplan() { // Myplan 컴포넌트 정의
             // PWA 방식: 새 창이 성공적으로 열리면 포커스 설정
             newWindow.focus();
         } else {
-            
+
         }
     }
 
@@ -229,8 +230,10 @@ function Myplan() { // Myplan 컴포넌트 정의
                                 {getFormattedDate(travelPlans[0]?.date)} [{travelPlans[0]?.dateStartTime}] ~
                                 {getFormattedDate(travelPlans[travelPlans.length - 1]?.date)} [{travelPlans[travelPlans.length - 1]?.dateEndTime}]
                             </p>
-                            {/*<p>날씨: {plan.Weather}</p>*/}
-                            {/*<p>예상 여행 경비: {plan.HotelData?.expectedCost || '정보 없음'}</p>*/}
+                            <p>
+                                예상 여행경비:
+                                약 {travelPlans.reduce((sum, plan) => sum + (plan.totalPrice || 0), 0).toLocaleString()} 원
+                            </p>
                         </div>
 
                     </div>
@@ -273,11 +276,13 @@ function Myplan() { // Myplan 컴포넌트 정의
                                                 className="myplan_place-details-button" 
                                                 >장소상세</button> {/* 장소 상세 버튼 */}
 
-                                                <p>예상 비용: </p>
+                                                <p>
+                                                    예상 경비: {spotList?.price?.toLocaleString()} 원
+                                                </p>
                                             </div>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                     
                                 </div>

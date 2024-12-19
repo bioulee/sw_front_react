@@ -98,9 +98,10 @@ function MyPlan({ userEmail }) {
                 <ul>
                     {plans.map(plan => (
                         <li key={plan.id} onClick={() => handlePlanClick(plan.id)} className="plan-item">
-                            <strong>플랜 아이디:</strong> {plan.id}<br/>
+                            {/*<strong>플랜 아이디:</strong> {plan.id}<br/>*/}
                             <strong>플랜 이름:</strong> {plan.saveName}<br/>
-                            <strong>저장 날짜:</strong> {plan.createdAt}
+                            {/*<strong>저장 날짜:</strong> {plan.createdAt}*/}
+                            <strong>저장 날짜:</strong> {new Date(plan.createdAt).toLocaleDateString('ko-KR')}
                         </li>
                     ))}
                 </ul>
