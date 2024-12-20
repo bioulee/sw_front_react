@@ -75,7 +75,7 @@ function MyPlan({ userEmail }) {
             .then(data => {
                 console.log("data : ",data);  // 응답 데이터 확인
                 setPlans(data);  // 서버로부터 받은 여행 계획 데이터 설정
-                navigate('/record', { state: { data } });
+                navigate('/record', { state: { data, email, id  } });
             })
             .catch(error => {
                 console.error("Error fetching data", error);  // 오류 처리
@@ -98,11 +98,15 @@ function MyPlan({ userEmail }) {
                 <ul>
                     {plans.map(plan => (
                         <li key={plan.id} onClick={() => handlePlanClick(plan.id)} className="plan-item">
-                            <strong>플랜 아이디:</strong> {plan.id}<br/>
+                            {/*<strong>플랜 아이디:</strong> {plan.id}<br/>*/}
                             <strong>플랜 이름:</strong> {plan.saveName}<br/>
-                            <strong>저장 날짜:</strong> {plan.createdAt}
+                            {/*<strong>저장 날짜:</strong> {plan.createdAt}*/}
+                            <strong>저장 날짜:</strong> {new Date(plan.createdAt).toLocaleDateString('ko-KR')}
+                            <br/>
                         </li>
+
                     ))}
+
                 </ul>
             ) : (
                 <p>여행 계획이 없습니다.</p>
