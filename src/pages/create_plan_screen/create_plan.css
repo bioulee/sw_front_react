@@ -106,7 +106,7 @@
   padding: 8px; /* 내부 여백 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
   position: relative; /* 위치 지정 */
-  z-index: 1000;
+  z-index: 10003;
 }
 
 .datepicker-input {

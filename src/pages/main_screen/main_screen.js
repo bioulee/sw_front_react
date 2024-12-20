@@ -96,7 +96,7 @@ function MainScreen({ isLoggedIn, onLogout }) {
                   className="rec-button  fade-in"
                   onClick={handleRecordClick}
               >
-                <span className="text">내 플렌</span>
+                <span className="text">내 플랜</span>
                 <span className="text1">이전에 생성한 여행계획을 볼 수 있습니다</span>
               </button>
           )}

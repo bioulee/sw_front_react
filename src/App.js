@@ -14,23 +14,23 @@ const SignUp = lazy(() => import('./pages/create_account_screen/create_account.j
 const Record = lazy(() => import('./pages/record_screen/record.js'));
 const MyRecord = lazy(() => import('./pages/myrecords_screen/myrecord.js'));
 
-function NavigationButtons() {
-  const navigate = useNavigate();
-  const location = useLocation();
+// function NavigationButtons() {
+//   const navigate = useNavigate();
+//   const location = useLocation();
 
-  // 특정 경로에서는 뒤로가기 버튼을 숨김
-  if (location.pathname === '/createplan' || location.pathname === '/loading' || location.pathname === '/myplan' || location.pathname === '/' || location.pathname === '/main'|| location.pathname === '/record') {
-    return null;
-  }
+//   // 특정 경로에서는 뒤로가기 버튼을 숨김
+//   if (location.pathname === '/createplan' || location.pathname === '/loading' || location.pathname === '/myplan' || location.pathname === '/' || location.pathname === '/main'|| location.pathname === '/record') {
+//     return null;
+//   }
 
-  return (
-    <div className="navigation-buttons">
-      <button className="back-button" onClick={() => navigate(-1)}>
-         뒤로가기
-      </button>
-    </div>
-  );
-}
+//   return (
+//     <div className="navigation-buttons">
+//       <button className="back-button" onClick={() => navigate(-1)}>
+//          뒤로가기
+//       </button>
+//     </div>
+//   );
+// }
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
@@ -88,7 +88,7 @@ function App() {
                   />
                 </Routes>
               </div>
-              <NavigationButtons />
+              {/* <NavigationButtons /> */}
             </div>
           </Suspense>
         </Router>
