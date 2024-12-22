@@ -28,7 +28,7 @@ function LoadingScreen() {
   const travelplanmaking = () => {
     console.log('전달할 데이터 :', requestData);
 
-    fetch('http://localhost:8080/TravelPlanMaking', {
+    fetch('http://43.203.196.107:8080/TravelPlanMaking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

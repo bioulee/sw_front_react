@@ -12,7 +12,7 @@ function LoginScreen({ onLogin }) { // onLogin prop 추가
     //서버로 로그인을 위한 유저 이메일, 비밀번호 전송
     const logincheck = async (email, password) => {
         try {
-            const response = await fetch('http://localhost:8080/login', {
+            const response = await fetch('http://43.203.196.107:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',  // JSON 형식으로 데이터 전송

@@ -83,7 +83,7 @@ function MainScreen({ isLoggedIn, onLogout, userEmail }) {
   };
 
   const DeleteAccount = (requestData) => {
-    return fetch('http://localhost:8080/unregister', {
+    return fetch('http://43.203.196.107:8080/unregister', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -108,7 +108,6 @@ function MainScreen({ isLoggedIn, onLogout, userEmail }) {
           throw error;  // 오류를 다시 던져서 외부에서 처리
         });
   };
-
 
 
   return (

@@ -46,7 +46,7 @@ function Myplan() { // Myplan 컴포넌트 정의
         window.initMap = () => { // Google Maps 초기화 함수 정의
             try {
                 const map = new window.google.maps.Map(document.getElementById("map"), { // "map" ID를 가진 요소에 맵 렌더링
-                    center: {lat: 37.5665, lng: 126.9780}, // 지도 중심 좌표 설정 (서울)
+                    center: {lat: 40.755436, lng: -73.97810799999999}, // 지도 중심 좌표 설정 (서울)
                     zoom: 12, // 지도 줌 레벨 설정
                 });
 
@@ -73,16 +73,16 @@ function Myplan() { // Myplan 컴포넌트 정의
                 }) || [];
 
                 const dayColors = [
-                    "#FF6B6B", // Day 1: 빨간색
-                    "#4DA8DA", // Day 2: 파란색
-                    "#51C059", // Day 3: 초록색
-                    "#9B59B6", // Day 4: 보라색
-                    "#FFC312", // Day 5: 노란색
-                    "#EE5A24", // Day 6: 주황색
-                    "#1E90FF", // Day 7: 연파랑색
-                    "#00A878", // Day 8: 청록색
-                    "#B53471", // Day 9: 마젠타
-                    "#5758BB", // Day 10: 진한 파랑색
+                    "#FF0000", // Day 1: 빨간색
+                    "#FF8C00", // Day 2: 주황색
+                    "#FFC312", // Day 3: 노란색
+                    "#51C059", // Day 4: 초록색
+                    "#1E90FF", // Day 5: 연파랑색
+                    "#4DA8DA", // Day 6: 파란색  
+                    "#00A878", // Day 7: 청록색   
+                    "#5758BB", // Day 8: 진한 파랑색      
+                    "#9B59B6", // Day 9: 보라색
+                    "#B53471", // Day 10: 마젠타  
                 ];
 
                 // 일자별 마커 개수 관리 객체 동적 생성
@@ -203,7 +203,7 @@ function Myplan() { // Myplan 컴포넌트 정의
     const deletemyplan = (id) => {
         const requestData = { email: email, id: id };
 
-        fetch('http://localhost:8080/deletePlan', {
+        fetch('http://43.203.196.107:8080/deletePlan', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

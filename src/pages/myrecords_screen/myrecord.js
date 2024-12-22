@@ -45,7 +45,7 @@ function MyPlan({ userEmail }) {
     useEffect(() => {
         const requestData = { email: email };
 
-        fetch('http://localhost:8080/user', {
+        fetch('http://43.203.196.107:8080/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function MyPlan({ userEmail }) {
 
     const myplan = (id) => {
         const requestData = { email: email,id: id };
-        fetch('http://localhost:8080/myplan', {
+        fetch('http://43.203.196.107:8080/myplan', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

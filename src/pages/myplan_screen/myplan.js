@@ -71,16 +71,17 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
                 }) || [];
 
                 const dayColors = [
-                    "#FF6B6B", // Day 1: 빨간색
-                    "#4DA8DA", // Day 2: 파란색
-                    "#51C059", // Day 3: 초록색
-                    "#9B59B6", // Day 4: 보라색
-                    "#FFC312", // Day 5: 노란색
-                    "#EE5A24", // Day 6: 주황색
-                    "#1E90FF", // Day 7: 연파랑색
-                    "#00A878", // Day 8: 청록색
-                    "#B53471", // Day 9: 마젠타
-                    "#5758BB", // Day 10: 진한 파랑색
+                    
+                    "#FF0000", // Day 1: 빨간색
+                    "#FF8C00", // Day 2: 주황색
+                    "#FFC312", // Day 3: 노란색
+                    "#51C059", // Day 4: 초록색
+                    "#1E90FF", // Day 5: 연파랑색
+                    "#4DA8DA", // Day 6: 파란색  
+                    "#00A878", // Day 7: 청록색   
+                    "#5758BB", // Day 8: 진한 파랑색      
+                    "#9B59B6", // Day 9: 보라색
+                    "#B53471", // Day 10: 마젠타        
                 ];
 
                 // 일자별 마커 개수 관리 객체 동적 생성
@@ -175,7 +176,7 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
     const saveplan = () => {
         console.log('전달할 데이터 :',requestData );
 
-        fetch('http://localhost:8080/saveTravelPlan', {
+        fetch('http://43.203.196.107:8080/saveTravelPlan', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -320,6 +321,7 @@ function Myplan({ userEmail }) {  // 이메일 prop 받기 // Myplan 컴포넌�
                                         </div>
                                         <div className="myplan_item-details"> {/* 아이템 상세 정보 */}
                                             <div className="myplan_item-header"> {/* 아이템 헤더 */}
+
                                                 <h2>{SpotList.SpotName}</h2> {/* 장소 이름 */}
                                                 <div className="myplan_meta-info"> {/* 추가 정보 */}
                                                     <span className="myplan_likes">❤️ {SpotList.SpotTotaltips}</span> {/* 좋아요 수 */}

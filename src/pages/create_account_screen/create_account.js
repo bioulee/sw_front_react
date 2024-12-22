@@ -22,7 +22,7 @@ const Signup = () => {
         console.log(email)
         const requestData = { mail: email }; // 이메일 주소만 포함한 객체 생성
 
-        fetch('http://localhost:8080/mailSend', {
+        fetch('http://43.203.196.107:8080/mailSend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ const Signup = () => {
             enteredVerificationCode: enteredVerificationCode,
         }; // 이메일 주소, 입력한 검증 코드 전송
 
-        return fetch('http://localhost:8080/mailCheck', {
+        return fetch('http://43.203.196.107:8080/mailCheck', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestData), // 이메일 주소,검증코드 전송
@@ -70,7 +70,7 @@ const Signup = () => {
     //서버로 회원가입을 위한 유저 이메일, 비밀번호 전송
     const registerUser = async (email, password) => {
         try {
-            const response = await fetch('http://localhost:8080/register', {
+            const response = await fetch('http://43.203.196.107:8080/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',  // JSON 형식으로 데이터 전송
